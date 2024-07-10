@@ -1,12 +1,29 @@
 import express, { Express } from "express";
 import dotenv from "dotenv";
+import mongoose from "mongoose";
+import authRoutes from "./routes/auth.routes";
 dotenv.config();
-const { APP_PORT } = process.env;
+const { MONGO_URL, APP_PORT } = process.env;
 
 const app: Express = express();
+const PORT = APP_PORT || 5000;
+app.use(express.json());
 
-const PORT = APP_PORT || 4000;
+app.use("/api/auth", authRoutes);
 
-app.listen(PORT, () => {
-    console.log(`Server is listening on port ${PORT}`);
-});
+const startApplication = async () => {
+    if (!MONGO_URL) {
+        throw new Error("MONGO_URL is not defined in the environment variables");
+    }
+    // Connect to MongoDB
+    await mongoose
+        .connect(MONGO_URL)
+        .then(() => console.log("MongoDB is connected successfully"))
+        .catch((err) => console.error(err));
+
+    app.listen(PORT, () => {
+        console.log(`Server is listening on port ${PORT}`);
+    });
+};
+
+startApplication();
