@@ -27,7 +27,7 @@ export const register = async (req: Request, res: Response) => {
 
 export const login = async (req: Request, res: Response) => {
     try {
-        const { login, email, password } = req.body;
+        const { email, password } = req.body;
         const existingUser = await User.findOne({ email });
         if (!existingUser) {
             return res.status(400).json({ message: "Invalid email" });
@@ -39,8 +39,7 @@ export const login = async (req: Request, res: Response) => {
         const token = jwt.sign({ id: existingUser._id, role: existingUser.roles }, JWT_SECRET || "placeholder", {
             expiresIn: "1h",
         });
-        res.status(200).json({ message: "User logged successfully", token });
-        console.log(JWT_SECRET);
+        res.status(200).cookie("token", token, { httpOnly: true }).json({ message: "User logged successfully" });
     } catch (error) {
         console.log(error);
         res.status(400).json({ message: "Login error" });

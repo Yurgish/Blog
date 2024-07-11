@@ -12,10 +12,10 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction) 
     }
 
     try {
-        if (!req.headers.authorization) {
+        if (!req.headers.cookie) {
             return res.status(403).json({ message: "User is not logged in" });
         }
-        const token = req.headers.authorization.replace("Bearer ", "");
+        const token = req.headers.cookie.replace("Bearer ", "");
         const decodedToken = jwt.verify(token, JWT_SECRET || "placeholder");
         (req as CustomRequest).token = decodedToken;
         next();
