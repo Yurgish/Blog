@@ -1,8 +1,10 @@
+import AuthLayout from "./pages/layouts/AuthLayout";
+
 function App() {
     return (
-        <>
-            <div className="bg-grey">app working</div>
-        </>
+        <AuthLayout authTitle="Sign Up">
+            <p>aboba</p>
+        </AuthLayout>
     );
 }
 

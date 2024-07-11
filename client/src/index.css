@@ -1,12 +1,12 @@
+/* Fonts */
+
+@import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Lexend+Deca:wght@100..900&display=swap");
+
 /* Tailwind styles  */
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* Fonts */
-
-@import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Lexend+Deca:wght@100..900&display=swap");
 
 /* Reset Styles */
 
@@ -34,4 +34,10 @@ button,
 textarea,
 select {
     font: inherit;
+}
+
+/* Global Styles */
+
+body {
+    @apply bg-background-black font-sans;
 }
