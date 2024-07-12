@@ -1,11 +1,7 @@
-import AuthLayout from "./pages/layouts/AuthLayout";
+import RegisterPage from "./pages/RegisterPage";
 
 function App() {
-    return (
-        <AuthLayout authTitle="Sign Up">
-            <p>aboba</p>
-        </AuthLayout>
-    );
+    return <RegisterPage />;
 }
 
 export default App;
