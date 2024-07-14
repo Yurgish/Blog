@@ -8,8 +8,8 @@ export default {
                 green: "#6EEB83",
                 grey: "#A5A5A5",
                 "background-black": "#272727",
-                black: "#000000",
                 red: "#FF5E5B",
+                black: "#1A2E05",
             },
             fontFamily: {
                 sans: ["Lexend Deca", "sans-serif"],
