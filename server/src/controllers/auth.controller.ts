@@ -2,10 +2,9 @@ import { Request, Response } from "express";
 import { Role } from "../models/role.model";
 import { User } from "../models/user.model";
 import jwt from "jsonwebtoken";
+import { removeObjectFields } from "../utils/removeObjectFields";
 const bcrypt = require("bcrypt");
 const { JWT_SECRET } = process.env;
-
-// Винести всю логіку валідації в midleware
 
 export const register = async (req: Request, res: Response) => {
     try {
@@ -18,7 +17,8 @@ export const register = async (req: Request, res: Response) => {
         }
         const newUser = new User({ login, email, password: hashPassword, roles: [userRole.value] });
         await newUser.save();
-        res.status(201).json({ message: "User registered successfully", newUser });
+        const sanitizedUser = removeObjectFields(newUser.toObject(), ["password", "__v"]);
+        res.status(201).json({ message: "User registered successfully", user: sanitizedUser });
     } catch (error) {
         console.log(error);
         res.status(400).json({ message: "Registration error" });
@@ -39,7 +39,10 @@ export const login = async (req: Request, res: Response) => {
         const token = jwt.sign({ id: existingUser._id, role: existingUser.roles }, JWT_SECRET || "placeholder", {
             expiresIn: "1h",
         });
-        res.status(200).cookie("token", token, { httpOnly: true }).json({ message: "User logged successfully" });
+        const sanitizedUser = removeObjectFields(existingUser.toObject(), ["password", "__v"]);
+        res.status(200)
+            .cookie("token", token, { httpOnly: true, maxAge: 60 * 60 })
+            .json({ message: "User logged successfully", user: sanitizedUser });
     } catch (error) {
         console.log(error);
         res.status(400).json({ message: "Login error" });
