@@ -1,10 +1,14 @@
 import { Request, Response } from "express";
 import { Role } from "../models/role.model";
-import { User } from "../models/user.model";
+import { IUserDocument, User } from "../models/user.model";
 import jwt from "jsonwebtoken";
 import { removeObjectFields } from "../utils/removeObjectFields";
 const bcrypt = require("bcrypt");
 const { JWT_SECRET } = process.env;
+
+interface UserRequest extends Request {
+    user: IUserDocument;
+}
 
 export const register = async (req: Request, res: Response) => {
     try {
@@ -27,15 +31,8 @@ export const register = async (req: Request, res: Response) => {
 
 export const login = async (req: Request, res: Response) => {
     try {
-        const { email, password } = req.body;
-        const existingUser = await User.findOne({ email });
-        if (!existingUser) {
-            return res.status(400).json({ errors: [{ msg: "Invalid email", path: "email" }] }); //Валідаційна помилка (повернутись до цього пізніше)
-        }
-        const isValidPassword = await bcrypt.compareSync(password, existingUser.password);
-        if (!isValidPassword) {
-            return res.status(400).json({ errors: [{ msg: "Invalid password", path: "password" }] }); //Валідаційна помилка (повернутись до цього пізніше)
-        }
+        const existingUser = (req as UserRequest).user;
+
         const token = jwt.sign({ id: existingUser._id, role: existingUser.roles }, JWT_SECRET || "placeholder", {
             expiresIn: "1h",
         });
