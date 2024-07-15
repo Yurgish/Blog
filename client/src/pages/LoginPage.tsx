@@ -62,7 +62,9 @@ const LoginPage = () => {
                         name="password"
                         className="mb-1"
                     />
-                    {validationErrors.email && <p className="text-red italic text-sm">{validationErrors.email}</p>}
+                    {validationErrors.password && (
+                        <p className="text-red italic text-sm">{validationErrors.password}</p>
+                    )}
                 </div>
                 <div className="mt-5">
                     <Button value="SUBMIT" onClick={handleLoginSubmit} />

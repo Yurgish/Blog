@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { body, validationResult } from "express-validator";
+import { body, matchedData, validationResult } from "express-validator";
 import { User } from "../models/user.model";
 
 export const registerValidation = [

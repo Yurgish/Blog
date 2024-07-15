@@ -30,11 +30,11 @@ export const login = async (req: Request, res: Response) => {
         const { email, password } = req.body;
         const existingUser = await User.findOne({ email });
         if (!existingUser) {
-            return res.status(400).json({ message: "Invalid email" });
+            return res.status(400).json({ errors: [{ msg: "Invalid email", path: "email" }] }); //Валідаційна помилка (повернутись до цього пізніше)
         }
         const isValidPassword = await bcrypt.compareSync(password, existingUser.password);
         if (!isValidPassword) {
-            return res.status(400).json({ message: "Invalid password" });
+            return res.status(400).json({ errors: [{ msg: "Invalid password", path: "password" }] }); //Валідаційна помилка (повернутись до цього пізніше)
         }
         const token = jwt.sign({ id: existingUser._id, role: existingUser.roles }, JWT_SECRET || "placeholder", {
             expiresIn: "1h",
