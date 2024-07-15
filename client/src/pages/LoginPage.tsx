@@ -4,6 +4,9 @@ import Input from "../components/Input";
 import useValidationError from "../hooks/authValidationError";
 import { userApi } from "../services/user.service";
 import Button from "../components/Button";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import InputWithErrorMessages from "../components/InputWithErrorMessages";
 
 type UserLoginForm = {
     email: string;
@@ -15,8 +18,8 @@ const LoginPage = () => {
         email: "",
         password: "",
     });
-
     const { validationErrors, clearErrors, handleServerError, clearError } = useValidationError();
+    const navigate = useNavigate();
     const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setLoginForm((prev) => ({
@@ -32,6 +35,7 @@ const LoginPage = () => {
         clearErrors();
         try {
             await loginTrigger(loginForm).unwrap();
+            navigate("/");
         } catch (error) {
             console.log(error);
             handleServerError(error);
@@ -42,32 +46,30 @@ const LoginPage = () => {
     return (
         <AuthLayout authTitle="Sign Up" welcomeText="Let’s sign you up quickly">
             <form className="flex flex-col gap-5">
-                <div>
-                    <Input
-                        type="text"
-                        placeholder="Enter your email"
-                        value={loginForm.email}
-                        onChange={handleFormChange}
-                        name="email"
-                        className="mb-1"
-                    />
-                    {validationErrors.email && <p className="text-red italic text-sm">{validationErrors.email}</p>}
-                </div>
-                <div>
-                    <Input
-                        type="password"
-                        placeholder="Enter your password"
-                        value={loginForm.password}
-                        onChange={handleFormChange}
-                        name="password"
-                        className="mb-1"
-                    />
-                    {validationErrors.password && (
-                        <p className="text-red italic text-sm">{validationErrors.password}</p>
-                    )}
-                </div>
-                <div className="mt-5">
-                    <Button value="SUBMIT" onClick={handleLoginSubmit} />
+                <InputWithErrorMessages
+                    type="text"
+                    placeholder="Enter your email"
+                    value={loginForm.email}
+                    onChange={handleFormChange}
+                    name="email"
+                    errorMessage={validationErrors.email}
+                />
+                <InputWithErrorMessages
+                    type="password"
+                    placeholder="Enter your password"
+                    value={loginForm.password}
+                    onChange={handleFormChange}
+                    name="password"
+                    errorMessage={validationErrors.password}
+                />
+                <div className="mt-5 flex justify-between items-center">
+                    <Button value="LOGIN" onClick={handleLoginSubmit} />
+                    <div className="text-xl">
+                        <p className="text-white ">don’t have an account?</p>
+                        <Link to="/register" className="text-green hover:underline">
+                            sign-up
+                        </Link>
+                    </div>
                 </div>
             </form>
         </AuthLayout>

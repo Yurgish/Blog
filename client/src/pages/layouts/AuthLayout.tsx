@@ -19,7 +19,7 @@ const AuthLayout: FC<AuthLayoutProps> = ({ children, authTitle, welcomeText }) =
                 </div>
                 <div className="w-full h-full absolute top-0 left-0 z-[-1] bg-[rgba(39,39,39,0.28)]"></div>
                 <img
-                    className="w-full h-full absolute top-0 left-0 z-[-2]"
+                    className="object-cover h-full absolute top-0 left-0 z-[-2]"
                     src="/auth-background.png"
                     alt="auth background"
                 />

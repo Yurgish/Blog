@@ -5,6 +5,9 @@ import Button from "../components/Button";
 import { userApi } from "../services/user.service";
 import { IUserRegister } from "../models/userApi.models";
 import useValidationError from "../hooks/authValidationError";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import InputWithErrorMessages from "../components/InputWithErrorMessages";
 
 type UserRegisterForm = {
     login: string;
@@ -22,6 +25,7 @@ const RegisterPage = () => {
     });
     const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(true);
     const { validationErrors, clearErrors, handleServerError, clearError } = useValidationError();
+    const navigate = useNavigate();
 
     const handleRegisterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -40,6 +44,7 @@ const RegisterPage = () => {
         clearErrors();
         try {
             await registerTrigger(userRegisterData).unwrap();
+            navigate("/");
         } catch (error) {
             console.log(error);
             handleServerError(error);
@@ -59,51 +64,46 @@ const RegisterPage = () => {
     return (
         <AuthLayout authTitle="Sign Up" welcomeText="Let’s sign you up quickly">
             <form className="flex flex-col gap-5">
-                <div>
-                    <Input
-                        type="text"
-                        placeholder="Enter your name"
-                        value={registerForm.login}
-                        onChange={handleRegisterChange}
-                        name="login"
-                        className="mb-1"
-                    />
-                    {validationErrors.login && <p className="text-red italic text-sm">{validationErrors.login}</p>}
-                </div>
-                <div>
-                    <Input
-                        type="email"
-                        placeholder="Enter your email"
-                        value={registerForm.email}
-                        onChange={handleRegisterChange}
-                        name="email"
-                        className="mb-1"
-                    />
-                    {validationErrors.email && <p className="text-red italic text-sm">{validationErrors.email}</p>}
-                </div>
-                <Input
+                <InputWithErrorMessages
+                    type="text"
+                    placeholder="Enter your name"
+                    value={registerForm.login}
+                    onChange={handleRegisterChange}
+                    name="login"
+                    errorMessage={validationErrors.login}
+                />
+                <InputWithErrorMessages
+                    type="email"
+                    placeholder="Enter your email"
+                    value={registerForm.email}
+                    onChange={handleRegisterChange}
+                    name="email"
+                    errorMessage={validationErrors.email}
+                />
+                <InputWithErrorMessages
                     type="password"
                     placeholder="Enter your password"
                     value={registerForm.password}
                     onChange={handleRegisterChange}
                     name="password"
+                    errorMessage={validationErrors.password}
+                />
+                <Input
+                    type="password"
+                    placeholder="Confirm your password"
+                    value={registerForm.confirmPassword}
+                    onChange={handleRegisterChange}
+                    name="confirmPassword"
                     className="mb-1"
                 />
-                <div>
-                    <Input
-                        type="password"
-                        placeholder="Confirm your password"
-                        value={registerForm.confirmPassword}
-                        onChange={handleRegisterChange}
-                        name="confirmPassword"
-                        className="mb-1"
-                    />
-                    {validationErrors.password && (
-                        <p className="text-red italic text-sm">{validationErrors.password}</p>
-                    )}
-                </div>
-                <div className="mt-5">
+                <div className="mt-5 flex justify-between items-center">
                     <Button value="SUBMIT" onClick={handleRegisterSubmit} disabled={isButtonDisabled} />
+                    <div className="text-xl">
+                        <p className="text-white ">already have an account?</p>
+                        <Link to="/login" className="text-green hover:underline">
+                            log in
+                        </Link>
+                    </div>
                 </div>
             </form>
         </AuthLayout>
