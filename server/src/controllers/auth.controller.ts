@@ -45,3 +45,13 @@ export const login = async (req: Request, res: Response) => {
         res.status(400).json({ message: "Login error" });
     }
 };
+
+export const logout = async (req: Request, res: Response) => {
+    try {
+        res.clearCookie("token");
+        res.status(200).json({ message: "Logged out successfully" });
+    } catch (error) {
+        console.error("Error logging out:", error);
+        res.status(500).json({ message: "Failed to logout" });
+    }
+};
