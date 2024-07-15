@@ -1,6 +1,6 @@
-import { model, Schema } from "mongoose";
+import { Document, model, Schema } from "mongoose";
 
-interface PostI {
+interface IPostDocument extends Document {
     title: string;
     summary: string;
     content: string;
@@ -8,7 +8,7 @@ interface PostI {
     author: Schema.Types.ObjectId;
 }
 
-const postSchema = new Schema<PostI>(
+const postSchema = new Schema<IPostDocument>(
     {
         title: {
             type: String,
@@ -31,4 +31,4 @@ const postSchema = new Schema<PostI>(
     }
 );
 
-export const Post = model<PostI>("Post", postSchema);
+export const Post = model<IPostDocument>("Post", postSchema);

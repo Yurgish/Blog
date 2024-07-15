@@ -1,10 +1,10 @@
-import { model, Schema } from "mongoose";
+import { model, Schema, Document } from "mongoose";
 
-interface RoleI {
+interface IRoleDocument extends Document {
     value: string;
 }
 
-const roleSchema = new Schema<RoleI>({
+const roleSchema = new Schema<IRoleDocument>({
     value: {
         type: String,
         unique: true,
@@ -12,4 +12,4 @@ const roleSchema = new Schema<RoleI>({
     },
 });
 
-export const Role = model<RoleI>("Role", roleSchema);
+export const Role = model<IRoleDocument>("Role", roleSchema);
