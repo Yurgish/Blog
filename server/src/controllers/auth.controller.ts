@@ -38,7 +38,7 @@ export const login = async (req: Request, res: Response) => {
         });
         const sanitizedUser = removeObjectFields(existingUser.toObject(), ["password", "__v"]);
         res.status(200)
-            .cookie("token", token, { httpOnly: true, maxAge: 60 * 60 })
+            .cookie("token", token, { maxAge: 60 * 60 * 1000, httpOnly: true, sameSite: "strict" })
             .json({ message: "User logged successfully", user: sanitizedUser });
     } catch (error) {
         console.log(error);

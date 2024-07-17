@@ -9,12 +9,12 @@ export type IUserLogin = {
     password: string;
 };
 
-export type IAuthResponce = {
+export type IAuthResponse = {
     message: string;
-    newUser: User;
+    user: IUser;
 };
 
-export type User = {
+export type IUser = {
     login: string;
     email: string;
     roles: string[];

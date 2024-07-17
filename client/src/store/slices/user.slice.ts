@@ -1,27 +1,43 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { User } from "../../models/userApi.models";
+import { IAuthResponse, IUser } from "../../models/userApi.models";
+import { userApi } from "../../services/user.service";
 
-const initialState: User = {
-    login: "",
-    email: "",
-    roles: [],
-    createdAt: "",
-    _id: "",
+interface authorizedUser {
+    user: IUser | undefined;
+    isAuthorized: boolean;
+}
+
+const initialState: authorizedUser = {
+    user: undefined,
+    isAuthorized: false,
 };
 
 export const userSlice = createSlice({
-    name: "user",
+    name: "authorizedUser",
     initialState,
     reducers: {
-        setCurrentUser: (state, action: PayloadAction<User>) => {
-            Object.assign(state, action.payload);
-        },
-        deleteCurrentUser: () => {
-            return initialState;
-        },
+        // setCurrentUser: (state, action: PayloadAction<IUser>) => {
+        //     state.user = action.payload;
+        // },
+        // deleteCurrentUser: () => {
+        //     return initialState;
+        // },
+    },
+    extraReducers: (builder) => {
+        builder.addMatcher(
+            userApi.endpoints.loginUser.matchFulfilled,
+            (state, action: PayloadAction<IAuthResponse>) => {
+                state.user = action.payload.user;
+                state.isAuthorized = true;
+            }
+        );
+        builder.addMatcher(userApi.endpoints.logoutUser.matchFulfilled, (state) => {
+            state.user = undefined;
+            state.isAuthorized = false;
+        });
     },
 });
 
-export const { setCurrentUser, deleteCurrentUser } = userSlice.actions;
+// export const { setCurrentUser, deleteCurrentUser } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import AuthLayout from "./layouts/AuthLayout";
-import Input from "../components/Input";
 import useValidationError from "../hooks/authValidationError";
 import { userApi } from "../services/user.service";
 import Button from "../components/Button";

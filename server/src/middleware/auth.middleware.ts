@@ -11,9 +11,9 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction) 
         next();
     }
     try {
-        const token = req.cookies["token"];
+        const token = req.cookies.token;
         if (!token) {
-            return res.status(403).json({ message: "User is not logged in" });
+            return res.status(403).json({ message: "User is not logged in (no token)" });
         }
         const decodedToken = jwt.verify(token, JWT_SECRET || "placeholder");
         (req as CustomRequest).token = decodedToken;
