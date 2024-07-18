@@ -10,6 +10,10 @@
 
 /* Reset Styles */
 
+:root {
+    color-scheme: dark;
+}
+
 *,
 *::before,
 *::after {

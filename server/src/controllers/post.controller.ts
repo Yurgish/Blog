@@ -30,8 +30,9 @@ export const createPost = async (req: Request, res: Response) => {
             author: userId,
         });
         await newPost.save();
+        const populatedPost = await newPost.populate("author", "email");
 
-        res.status(201).json({ message: "Post created successfully", post: newPost });
+        res.status(201).json({ message: "Post created successfully", post: populatedPost });
     } catch (error) {
         console.error("Error creating post:", error);
         res.status(500).json({ message: "Error creating post" });
@@ -59,7 +60,8 @@ export const updatePost = async (req: Request, res: Response) => {
         post.tags = tags || post.tags;
 
         await post.save();
-        res.status(200).json({ message: "Post updated successfully", post });
+        const populatedPost = await post.populate("author", "email");
+        res.status(200).json({ message: "Post updated successfully", populatedPost });
     } catch (error) {
         console.error("Error updating post:", error);
         res.status(500).json({ message: "Error updating post" });

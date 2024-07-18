@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { Link } from "react-router-dom";
 
 interface PostProps {
@@ -20,7 +20,7 @@ const Post: FC<PostProps> = ({ title, summary, id, tags, createdAt, authorEmail 
                 </h1>
                 <p className="[writing-mode:vertical-lr] transform -rotate-180">{"@" + authorEmail.split("@")[0]}</p>
             </div>
-            <div className="max-w-[890px]">
+            <div className="w-[890px]">
                 <h1 className="text-green font-serif text-[32px] mb-5">{title}</h1>
                 <p className="text-white text-lg">
                     {summary}
