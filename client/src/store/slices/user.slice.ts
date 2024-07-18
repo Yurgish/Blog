@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IAuthResponse, IUser } from "../../models/userApi.models";
 import { userApi } from "../../services/user.service";
 
-interface authorizedUser {
+export interface authorizedUser {
     user: IUser | undefined;
     isAuthorized: boolean;
 }
