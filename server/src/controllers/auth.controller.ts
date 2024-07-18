@@ -21,7 +21,7 @@ export const register = async (req: Request, res: Response) => {
         }
         const newUser = new User({ login, email, password: hashPassword, roles: [userRole.value] });
         await newUser.save();
-        const sanitizedUser = removeObjectFields(newUser.toObject(), ["password", "__v"]);
+        const sanitizedUser = removeObjectFields(newUser.toObject(), ["password", "__v", "_id"]);
         res.status(201).json({ message: "User registered successfully", user: sanitizedUser });
     } catch (error) {
         console.log(error);
@@ -36,7 +36,7 @@ export const login = async (req: Request, res: Response) => {
         const token = jwt.sign({ id: existingUser._id, role: existingUser.roles }, JWT_SECRET || "placeholder", {
             expiresIn: "1h",
         });
-        const sanitizedUser = removeObjectFields(existingUser.toObject(), ["password", "__v"]);
+        const sanitizedUser = removeObjectFields(existingUser.toObject(), ["password", "__v", "_id"]);
         res.status(200)
             .cookie("token", token, { maxAge: 60 * 60 * 1000, httpOnly: true, sameSite: "strict" })
             .json({ message: "User logged successfully", user: sanitizedUser });

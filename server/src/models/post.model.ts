@@ -4,7 +4,7 @@ interface IPostDocument extends Document {
     title: string;
     summary: string;
     content: string;
-    file: string;
+    tags?: string[];
     author: Schema.Types.ObjectId;
 }
 
@@ -21,8 +21,9 @@ const postSchema = new Schema<IPostDocument>(
             type: String,
             required: true,
         },
-        file: {
-            type: String,
+        tags: {
+            type: [String],
+            default: [],
         },
         author: { type: Schema.Types.ObjectId, ref: "User", required: true },
     },
