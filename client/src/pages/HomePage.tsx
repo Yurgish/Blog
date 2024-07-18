@@ -2,6 +2,7 @@ import React from "react";
 import { useAppSelector } from "../hooks/store.hooks";
 import { Link } from "react-router-dom";
 import { userApi } from "../services/user.service";
+import ProfileIcon from "../components/ProfileIcon";
 
 const HomePage = () => {
     const [logoutTrigger, { error }] = userApi.useLogoutUserMutation();
