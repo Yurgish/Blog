@@ -66,6 +66,17 @@ export const updatePost = async (req: Request, res: Response) => {
     }
 };
 
+export const getPostById = async (req: Request, res: Response) => {
+    try {
+        const postId = req.params.id;
+        const post = await Post.findById(postId);
+        res.status(200).json({ post });
+    } catch (error) {
+        console.error("Error fetching posts:", error);
+        res.status(500).json({ message: "Error fetching posts" });
+    }
+};
+
 // export const searchPostsByTag = async (req: Request, res: Response) => {
 //     try {
 //         const tag = req.body.tag as string;
