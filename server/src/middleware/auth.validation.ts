@@ -1,6 +1,6 @@
-import { Request, Response, NextFunction } from "express";
-import { body, matchedData, validationResult } from "express-validator";
+import { body } from "express-validator";
 import { User } from "../models/user.model";
+import { validationResultHandler } from "../utils/validationResultHandler";
 const bcrypt = require("bcrypt");
 
 export const registerValidation = [
@@ -15,13 +15,7 @@ export const registerValidation = [
             }
         }),
     body("password").isLength({ min: 6 }).withMessage("Password must be at least 6 characters long"),
-    (req: Request, res: Response, next: NextFunction) => {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
-        }
-        next();
-    },
+    validationResultHandler,
 ];
 
 export const loginValidation = [
@@ -46,11 +40,5 @@ export const loginValidation = [
                 }
             }
         }),
-    (req: Request, res: Response, next: NextFunction) => {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
-        }
-        next();
-    },
+    validationResultHandler,
 ];
