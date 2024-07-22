@@ -4,6 +4,7 @@ import ReactQuill, { Quill } from "react-quill";
 import Button from "./Button";
 import "react-quill/dist/quill.snow.css";
 import InputWithErrorMessages from "./InputWithErrorMessages";
+import { cleanTags, splitTags } from "../utils/post.utils";
 
 const Font = Quill.import("formats/font");
 Font.whitelist = ["DM-Serif-Display", "Lexend-Deca"];
@@ -35,7 +36,7 @@ const PostCreateAndUpdateInputs: FC<PostFormProps> = ({
             title,
             content,
             ...(summary && { summary }),
-            ...(tags && { tags: tags.split(",").map((tag) => tag.trim()) }),
+            ...(tags && { tags: cleanTags(splitTags(tags)) }),
         };
         onSubmit(post);
     };

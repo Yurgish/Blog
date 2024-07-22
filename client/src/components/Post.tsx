@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
+import { addHashtags, transformEmail } from "../utils/post.utils";
 
 interface PostProps {
     title: string;
@@ -19,7 +20,7 @@ const Post: FC<PostProps> = ({ title, summary, id, tags, createdAt, authorEmail 
                     {new Date(createdAt).toLocaleString("eng", { month: "short" })}
                 </h1>
                 <p className="[writing-mode:vertical-lr] transform -rotate-180 text-base font-light">
-                    {"@" + authorEmail.split("@")[0]}
+                    {transformEmail(authorEmail)}
                 </p>
             </div>
             <div className="w-[890px]">
@@ -33,7 +34,7 @@ const Post: FC<PostProps> = ({ title, summary, id, tags, createdAt, authorEmail 
 
                 <div className="flex mt-3">
                     {tags &&
-                        tags.map((tag, index) => (
+                        addHashtags(tags).map((tag, index) => (
                             <div
                                 key={index}
                                 className="text-green text-sm border-green border px-[18px] py-1 rounded-full mr-2"
