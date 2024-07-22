@@ -56,14 +56,19 @@ export const logout = async (req: Request, res: Response) => {
     }
 };
 
-export const checkAuth = (req: Request, res: Response) => {
+export const checkAuth = async (req: Request, res: Response) => {
     try {
         const token = req.cookies.token;
         if (!token) {
-            return res.status(401).json({ message: "User is not logged in" });
+            return res.status(401).json({ message: "User is not logged in (no token)" });
         }
         const decodedToken = jwt.verify(token, JWT_SECRET || "placeholder") as JwtPayload;
-        res.status(200).json({ message: "User is logged in", user: decodedToken });
+        const user = await User.findOne({ _id: decodedToken.id });
+        if (!user) {
+            return res.status(401).json({ message: "User not found" });
+        }
+        const sanitizedUser = removeObjectFields(user.toObject(), ["password", "__v", "_id"]);
+        res.status(200).json({ message: "User is logged in", user: sanitizedUser });
     } catch (error) {
         console.log(error);
         res.status(401).json({ message: "User is not logged in" });

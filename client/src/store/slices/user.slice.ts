@@ -35,6 +35,17 @@ export const userSlice = createSlice({
             state.user = undefined;
             state.isAuthorized = false;
         });
+        builder.addMatcher(
+            userApi.endpoints.checkAuth.matchFulfilled,
+            (state, action: PayloadAction<IAuthResponse>) => {
+                state.user = action.payload.user;
+                state.isAuthorized = true;
+            }
+        );
+        builder.addMatcher(userApi.endpoints.checkAuth.matchRejected, (state) => {
+            state.user = undefined;
+            state.isAuthorized = false;
+        });
     },
 });
 

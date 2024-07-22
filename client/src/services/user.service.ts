@@ -26,5 +26,8 @@ export const userApi = createApi({
                 method: "POST",
             }),
         }),
+        checkAuth: builder.query({
+            query: () => "/auth/check-auth",
+        }),
     }),
 });
