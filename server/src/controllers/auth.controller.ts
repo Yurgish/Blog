@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { Role } from "../models/role.model";
 import { IUserDocument, User } from "../models/user.model";
-import jwt from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
 import { removeObjectFields } from "../utils/removeObjectFields";
 const bcrypt = require("bcrypt");
 const { JWT_SECRET } = process.env;
@@ -53,5 +53,19 @@ export const logout = async (req: Request, res: Response) => {
     } catch (error) {
         console.error("Error logging out:", error);
         res.status(500).json({ message: "Failed to logout" });
+    }
+};
+
+export const checkAuth = (req: Request, res: Response) => {
+    try {
+        const token = req.cookies.token;
+        if (!token) {
+            return res.status(401).json({ message: "User is not logged in" });
+        }
+        const decodedToken = jwt.verify(token, JWT_SECRET || "placeholder") as JwtPayload;
+        res.status(200).json({ message: "User is logged in", user: decodedToken });
+    } catch (error) {
+        console.log(error);
+        res.status(401).json({ message: "User is not logged in" });
     }
 };
