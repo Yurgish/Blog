@@ -1,4 +1,5 @@
 import { postsApi } from "../services/posts.service";
+import { htmlToPlainText } from "../utils/post.utils";
 import Post from "./Post";
 
 const PostsContainer = () => {
@@ -16,7 +17,7 @@ const PostsContainer = () => {
                     <Post
                         key={post._id}
                         title={post.title}
-                        summary={post.summary ? post.summary : post.content}
+                        summary={post.summary ? post.summary : htmlToPlainText(post.content)}
                         createdAt={post.createdAt}
                         id={post._id}
                         authorEmail={post.author.email}

@@ -25,7 +25,7 @@ const Post: FC<PostProps> = ({ title, summary, id, tags, createdAt, authorEmail 
             <div className="w-[890px]">
                 <h1 className="text-green font-serif text-[32px] mb-5">{title}</h1>
                 <p className="text-white text-lg">
-                    {summary}
+                    {summary}{" "}
                     <Link to={`/post/${id}`} className="text-green hover:underline">
                         ...read more
                     </Link>
