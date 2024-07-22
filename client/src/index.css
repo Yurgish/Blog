@@ -48,19 +48,19 @@ body {
 
 p,
 li {
-    @apply text-lg !important;
+    @apply text-lg;
 }
 
 h1 {
-    @apply text-[32px] !important;
+    @apply text-[32px];
 }
 
 h2 {
-    @apply text-[26px] !important;
+    @apply text-[26px];
 }
 
 h3 {
-    @apply text-[22px] !important;
+    @apply text-[22px];
 }
 
 /* quillDarkTheme.css */

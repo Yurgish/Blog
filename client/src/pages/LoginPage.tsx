@@ -61,9 +61,9 @@ const LoginPage = () => {
                     name="password"
                     errorMessage={validationErrors.password}
                 />
-                <div className="mt-5 flex justify-between items-center">
+                <div className="mt-5 flex justify-between items-center max-sm:block">
                     <Button value="LOGIN" onClick={handleLoginSubmit} />
-                    <div className="text-xl">
+                    <div className="text-xl max-sm:mt-9">
                         <p className="text-white ">don’t have an account?</p>
                         <Link to="/register" className="text-green hover:underline">
                             sign-up
