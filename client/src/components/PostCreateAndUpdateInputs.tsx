@@ -33,9 +33,9 @@ const PostCreateAndUpdateInputs: FC<PostFormProps> = ({
         e.preventDefault();
         const post: IPost = {
             title,
-            summary,
             content,
-            tags: tags.split(",").map((tag) => tag.trim()),
+            ...(summary && { summary }),
+            ...(tags && { tags: tags.split(",").map((tag) => tag.trim()) }),
         };
         onSubmit(post);
     };
