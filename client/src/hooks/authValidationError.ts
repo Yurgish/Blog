@@ -8,12 +8,7 @@ type ServerValidationError = {
     location: string;
 };
 
-type ValidationErrors = {
-    login?: string;
-    password?: string;
-    email?: string;
-    confirmPassword?: string;
-};
+type ValidationErrors = Record<string, string | undefined>;
 
 const useValidationError = () => {
     const [validationErrors, setValidationErrors] = useState<ValidationErrors>({});

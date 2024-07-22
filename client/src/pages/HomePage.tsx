@@ -1,12 +1,12 @@
 import Menu from "../components/Menu";
 import PostsContainer from "../components/PostsContainer";
+import PageMenuLayout from "./layouts/PageMenuLayout";
 
 const HomePage = () => {
     return (
-        <div>
-            <Menu />
+        <PageMenuLayout>
             <PostsContainer />
-        </div>
+        </PageMenuLayout>
     );
 };
 

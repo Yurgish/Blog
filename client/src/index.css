@@ -45,3 +45,85 @@ select {
 body {
     @apply bg-background-black font-sans;
 }
+
+p,
+li {
+    @apply text-lg !important;
+}
+
+h1 {
+    @apply text-[32px] !important;
+}
+
+h2 {
+    @apply text-[26px] !important;
+}
+
+h3 {
+    @apply text-[22px] !important;
+}
+
+/* quillDarkTheme.css */
+
+.ql-toolbar {
+    @apply bg-background-black border border-green !important;
+}
+
+.ql-container.ql-snow {
+    @apply bg-background-black border border-green !important;
+}
+
+.ql-snow.ql-toolbar button svg {
+    @apply fill-green stroke-none !important;
+}
+
+.ql-toolbar.ql-snow .ql-picker-label {
+    color: inherit !important;
+    opacity: 0.76;
+}
+.ql-snow .ql-picker {
+    @apply text-green !important;
+}
+.ql-snow.ql-toolbar button svg {
+    @apply text-green;
+}
+.ql-snow .ql-stroke {
+    /* for the border of the editor */
+    stroke: currentColor !important;
+}
+.ql-snow .ql-fill {
+    /* for the bg color */
+    fill: currentColor !important;
+}
+.ql-picker-item {
+    /* for dropdown */
+    @apply text-green !important;
+}
+
+.ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-options {
+    @apply bg-background-black;
+}
+
+.ql-font-Lexend-Deca {
+    font-family: "Lexend Deca";
+}
+.ql-font-DM-Serif-Display {
+    font-family: "DM Serif Display";
+}
+
+/* Set dropdown font-families */
+
+.ql-picker.ql-font .ql-picker-label[data-value="Lexend-Deca"]::before,
+.ql-picker.ql-font .ql-picker-item[data-value="Lexend-Deca"]::before {
+    font-family: "Lexend Deca";
+    content: "Lexend Deca" !important;
+}
+.ql-picker.ql-font .ql-picker-label[data-value="DM-Serif-Display"]::before,
+.ql-picker.ql-font .ql-picker-item[data-value="DM-Serif-Display"]::before {
+    font-family: "DM Serif Display";
+    content: "DM Serif Display" !important;
+}
+
+.ql-snow .ql-picker.ql-font {
+    width: 150px !important;
+}

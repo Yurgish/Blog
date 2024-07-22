@@ -8,6 +8,7 @@ export const createPostValidation = [
         .optional()
         .isLength({ max: 444 })
         .withMessage("Summary must be at most 444 characters")
+        .optional()
         .isLength({ min: 150 })
         .withMessage("Summary must be at least 150 characters"),
     body("content").notEmpty().withMessage("Content is required"),

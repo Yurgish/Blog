@@ -3,6 +3,7 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import { FC } from "react";
 import HomePage from "./pages/HomePage";
+import CreatePostPage from "./pages/CreatePostPage";
 
 const router = createBrowserRouter([
     {
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
     {
         path: "/login",
         element: <LoginPage />,
+    },
+    {
+        path: "/createPost",
+        element: <CreatePostPage />,
     },
 ]);
 

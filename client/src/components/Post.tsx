@@ -18,7 +18,9 @@ const Post: FC<PostProps> = ({ title, summary, id, tags, createdAt, authorEmail 
                     {new Date(createdAt).getDate()} <br />{" "}
                     {new Date(createdAt).toLocaleString("eng", { month: "short" })}
                 </h1>
-                <p className="[writing-mode:vertical-lr] transform -rotate-180">{"@" + authorEmail.split("@")[0]}</p>
+                <p className="[writing-mode:vertical-lr] transform -rotate-180 text-base font-light">
+                    {"@" + authorEmail.split("@")[0]}
+                </p>
             </div>
             <div className="w-[890px]">
                 <h1 className="text-green font-serif text-[32px] mb-5">{title}</h1>

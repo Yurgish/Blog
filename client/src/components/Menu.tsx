@@ -18,10 +18,10 @@ const Menu = () => {
                     <p className="text-white">search</p>
                 </button>
                 {isAuthorized && (
-                    <button className="flex flex-col items-center">
+                    <Link to="/createPost" className="flex flex-col items-center">
                         <AddIcon />
                         <p className="text-white">create</p>
-                    </button>
+                    </Link>
                 )}
             </div>
             <div className="text-white flex justify-center border-t-2 border-green w-full">
