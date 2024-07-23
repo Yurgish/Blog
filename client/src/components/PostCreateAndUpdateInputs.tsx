@@ -1,9 +1,9 @@
 import React, { FC, useState } from "react";
 import { IPost } from "../models/postsApi.models";
 import ReactQuill, { Quill } from "react-quill";
-import Button from "./Button";
+import Button from "./ui/Button";
 import "react-quill/dist/quill.snow.css";
-import InputWithErrorMessages from "./InputWithErrorMessages";
+import InputWithErrorMessages from "./ui/InputWithErrorMessages";
 import { cleanTags, splitTags } from "../utils/post.utils";
 
 const Font = Quill.import("formats/font");

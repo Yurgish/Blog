@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import AuthLayout from "./layouts/AuthLayout";
-import Input from "../components/Input";
-import Button from "../components/Button";
+import Input from "../components/ui/Input";
+import Button from "../components/ui/Button";
 import { userApi } from "../services/user.service";
 import { IUserRegister } from "../models/userApi.models";
 import useValidationError from "../hooks/authValidationError";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import InputWithErrorMessages from "../components/InputWithErrorMessages";
+import InputWithErrorMessages from "../components/ui/InputWithErrorMessages";
 
 type UserRegisterForm = {
     login: string;

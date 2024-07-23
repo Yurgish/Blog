@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import AuthLayout from "./layouts/AuthLayout";
 import useValidationError from "../hooks/authValidationError";
 import { userApi } from "../services/user.service";
-import Button from "../components/Button";
+import Button from "../components/ui/Button";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import InputWithErrorMessages from "../components/InputWithErrorMessages";
+import InputWithErrorMessages from "../components/ui/InputWithErrorMessages";
 
 type UserLoginForm = {
     email: string;
