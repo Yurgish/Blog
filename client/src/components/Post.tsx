@@ -1,6 +1,8 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { addHashtags, transformEmail } from "../utils/post.utils";
+import { addHashtags, isAuthorOfPost, transformEmail } from "../utils/post.utils";
+import UpdatePostControls from "./UpdatePostControls";
+import { useAppSelector } from "../hooks/store.hooks";
 
 interface PostProps {
     title: string;
@@ -12,10 +14,12 @@ interface PostProps {
 }
 
 const Post: FC<PostProps> = ({ title, summary, id, tags, createdAt, authorEmail }) => {
+    const user = useAppSelector((state) => state.userReducer.user);
     const date = new Date(createdAt);
     const day = date.getDate();
     const month = date.toLocaleString("en", { month: "short" });
     const year = date.getFullYear();
+
     return (
         <div className="grid gap-4 grid-cols-[auto_1fr] max-sm:grid-cols-1 max-sm:gap-0">
             <div className="text-white flex flex-col items-end max-sm:flex-row max-sm:justify-between">
@@ -38,16 +42,19 @@ const Post: FC<PostProps> = ({ title, summary, id, tags, createdAt, authorEmail 
                     </Link>
                 </p>
             </div>
-            <div className="flex mt-3 col-start-2 max-sm:col-start-1">
-                {tags &&
-                    addHashtags(tags).map((tag, index) => (
-                        <div
-                            key={index}
-                            className="text-green text-sm border-green border px-[18px] py-1 rounded-full mr-2 max-md:text-xs"
-                        >
-                            {tag}
-                        </div>
-                    ))}
+            <div className="col-start-2 max-sm:col-start-1 flex justify-between mt-3 items-center">
+                <div className="flex gap-2">
+                    {tags &&
+                        addHashtags(tags).map((tag, index) => (
+                            <div
+                                key={index}
+                                className="text-green text-sm border-green border px-[18px] py-1 rounded-full max-md:text-xs"
+                            >
+                                {tag}
+                            </div>
+                        ))}
+                </div>
+                {user && isAuthorOfPost(user.email, authorEmail) && <UpdatePostControls postId={id} />}
             </div>
         </div>
     );

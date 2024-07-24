@@ -28,3 +28,7 @@ export const addHashtags = (tags: string[]): string[] => {
 export const splitTags = (tags: string): string[] => {
     return tags.split(",").map((tag) => tag.trim());
 };
+
+export const isAuthorOfPost = (userEmail: string, postAuthorEmail: string): boolean => {
+    return userEmail === postAuthorEmail;
+};
