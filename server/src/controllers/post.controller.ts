@@ -74,8 +74,19 @@ export const getPostById = async (req: Request, res: Response) => {
         const post = await Post.findById(postId);
         res.status(200).json({ post });
     } catch (error) {
-        console.error("Error fetching posts:", error);
+        console.error("Error fetching post:", error);
         res.status(500).json({ message: "Error fetching posts" });
+    }
+};
+
+export const deletePostById = async (req: Request, res: Response) => {
+    try {
+        const postId = req.params.id;
+        await Post.findByIdAndDelete(postId);
+        res.status(200).json({ message: "Post deleted successfully" });
+    } catch (error) {
+        console.error("Error deleting post:", error);
+        res.status(500).json({ message: "Error deleting post" });
     }
 };
 
