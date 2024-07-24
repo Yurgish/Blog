@@ -1,5 +1,5 @@
-import React, { FC, useState } from "react";
-import { IPost } from "../models/postsApi.models";
+import React, { FC, useEffect, useState } from "react";
+import { IPost, IPostResponse } from "../models/postsApi.models";
 import ReactQuill, { Quill } from "react-quill";
 import Button from "./ui/Button";
 import "react-quill/dist/quill.snow.css";
@@ -11,7 +11,7 @@ Font.whitelist = ["DM-Serif-Display", "Lexend-Deca"];
 Quill.register(Font, true);
 
 interface PostFormProps {
-    initialData?: IPost;
+    initialData?: IPostResponse;
     onSubmit: (post: IPost) => void;
     buttonText: string;
     validationErrors?: Record<string, string | undefined>;
@@ -25,10 +25,19 @@ const PostCreateAndUpdateInputs: FC<PostFormProps> = ({
     validationErrors,
     clearError,
 }) => {
-    const [title, setTitle] = useState(initialData?.title || "");
-    const [summary, setSummary] = useState(initialData?.summary || "");
-    const [content, setContent] = useState(initialData?.content || "");
-    const [tags, setTags] = useState(initialData?.tags ? initialData.tags.join(", ") : "");
+    const [title, setTitle] = useState("");
+    const [summary, setSummary] = useState("");
+    const [content, setContent] = useState("");
+    const [tags, setTags] = useState("");
+
+    useEffect(() => {
+        if (initialData) {
+            setTitle(initialData.title || "");
+            setSummary(initialData.summary || "");
+            setContent(initialData.content || "");
+            setTags(initialData.tags ? initialData.tags.join(", ") : "");
+        }
+    }, [initialData]);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();

@@ -4,6 +4,7 @@ import { IPost, IPostResponse, IPostResponseWithMessage } from "../models/postsA
 const SERVER_API_URL = import.meta.env.VITE_SERVER_API_URL;
 export const postsApi = createApi({
     reducerPath: "postsApi",
+    tagTypes: ["Post"],
     baseQuery: fetchBaseQuery({ baseUrl: SERVER_API_URL, credentials: "include" }),
     endpoints: (builder) => ({
         getPosts: builder.query<{ posts: IPostResponse[] }, { limit?: number; page?: number }>({
@@ -12,6 +13,7 @@ export const postsApi = createApi({
                 method: "GET",
                 params: { limit, page },
             }),
+            providesTags: ["Post"],
         }),
         getPostById: builder.query<IPostResponse, string>({
             query: (postId) => ({
@@ -32,12 +34,14 @@ export const postsApi = createApi({
                 method: "PUT",
                 body: updatedPost,
             }),
+            invalidatesTags: ["Post"],
         }),
         deletePost: builder.mutation<{ message: string }, string>({
             query: (postId) => ({
                 url: `/post/${postId}`,
                 method: "DELETE",
             }),
+            invalidatesTags: ["Post"],
         }),
     }),
 });

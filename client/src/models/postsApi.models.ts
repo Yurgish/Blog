@@ -10,7 +10,6 @@ export interface IPostResponse extends IPost {
     author: IAuthor;
     createdAt: string;
     updatedAt: string;
-    __v: number;
 }
 
 interface IAuthor {

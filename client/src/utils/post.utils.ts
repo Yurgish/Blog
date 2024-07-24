@@ -14,6 +14,7 @@ export const htmlToPlainText = (html: string): string => {
 };
 
 export const transformEmail = (email: string): string => {
+    if (!email) return "";
     return "@" + email.split("@")[0];
 };
 
@@ -31,4 +32,12 @@ export const splitTags = (tags: string): string[] => {
 
 export const isAuthorOfPost = (userEmail: string, postAuthorEmail: string): boolean => {
     return userEmail === postAuthorEmail;
+};
+
+export const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const day = date.getDate();
+    const month = date.toLocaleString("en", { month: "short" });
+    const year = date.getFullYear();
+    return `${day} ${month} ${year}`;
 };

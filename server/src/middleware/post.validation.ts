@@ -17,4 +17,17 @@ export const createPostValidation = [
     validationResultHandler,
 ];
 
-export const updatePostValidation = [];
+export const updatePostValidation = [
+    body("title").optional().notEmpty().withMessage("Title required"),
+    body("summary")
+        .optional()
+        .isLength({ max: 444 })
+        .withMessage("Summary must be at most 444 characters")
+        .optional()
+        .isLength({ min: 150 })
+        .withMessage("Summary must be at least 150 characters"),
+    body("content").optional().notEmpty().withMessage("Content is required"),
+    body("tags").optional().isArray().withMessage("Tags must be an array of strings"),
+    body("tags.*").optional().isString().withMessage("Each tag must be a string"),
+    validationResultHandler,
+];

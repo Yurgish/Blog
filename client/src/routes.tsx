@@ -5,7 +5,7 @@ import { FC } from "react";
 import HomePage from "./pages/HomePage";
 import CreatePostPage from "./pages/CreatePostPage";
 import { userApi } from "./services/user.service";
-import { error } from "console";
+import EditPostPage from "./pages/EditPostPage";
 
 const router = createBrowserRouter([
     {
@@ -23,6 +23,10 @@ const router = createBrowserRouter([
     {
         path: "/create-post",
         element: <CreatePostPage />,
+    },
+    {
+        path: "/edit-post/:id",
+        element: <EditPostPage />,
     },
 ]);
 
