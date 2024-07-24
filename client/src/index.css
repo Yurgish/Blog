@@ -43,7 +43,11 @@ select {
 /* Global Styles */
 
 body {
-    @apply bg-background-black font-sans;
+    @apply bg-background-black font-sans min-h-screen;
+}
+
+#root {
+    @apply min-h-screen;
 }
 
 p,

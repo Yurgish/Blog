@@ -60,7 +60,7 @@ export const checkAuth = async (req: Request, res: Response) => {
     try {
         const token = req.cookies.token;
         if (!token) {
-            return res.status(401).json({ message: "User is not logged in (no token)" });
+            return res.status(401).json({ message: "User is not logged in" });
         }
         const decodedToken = jwt.verify(token, JWT_SECRET || "placeholder") as JwtPayload;
         const user = await User.findOne({ _id: decodedToken.id });

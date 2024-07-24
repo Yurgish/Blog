@@ -17,7 +17,7 @@ const Menu = () => {
                     <p className="text-white max-sm:hidden">search</p>
                 </button>
                 {isAuthorized && (
-                    <Link to="/createPost" className="flex flex-col items-center max-xl:flex-row max-xl:gap-2">
+                    <Link to="/create-post" className="flex flex-col items-center max-xl:flex-row max-xl:gap-2">
                         <AddIcon />
                         <p className="text-white max-sm:hidden">create</p>
                     </Link>

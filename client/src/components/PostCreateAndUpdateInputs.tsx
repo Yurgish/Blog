@@ -60,7 +60,7 @@ const PostCreateAndUpdateInputs: FC<PostFormProps> = ({
         };
 
     return (
-        <form className="flex flex-col gap-5 w-[1200px]">
+        <form className="flex flex-col gap-5 w-full">
             <InputWithErrorMessages
                 type="text"
                 value={title}
@@ -83,7 +83,7 @@ const PostCreateAndUpdateInputs: FC<PostFormProps> = ({
                 errorMessage={validationErrors?.tags}
             />
             <ReactQuill value={content} onChange={setContent} modules={modules} className="mb-4" />
-            <Button type="button" value={buttonText} onClick={handleSubmit} className="mt-8 " />
+            <Button type="button" value={buttonText} onClick={handleSubmit} className="self-start" />
         </form>
     );
 };

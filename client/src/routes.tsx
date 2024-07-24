@@ -21,7 +21,7 @@ const router = createBrowserRouter([
         element: <LoginPage />,
     },
     {
-        path: "/createPost",
+        path: "/create-post",
         element: <CreatePostPage />,
     },
 ]);
