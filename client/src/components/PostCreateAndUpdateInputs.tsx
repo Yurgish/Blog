@@ -57,6 +57,7 @@ const PostCreateAndUpdateInputs: FC<PostFormProps> = ({
                 [{ font: Font.whitelist }],
                 ["bold", "italic", "underline"],
                 [{ list: "ordered" }, { list: "bullet" }],
+                ["clean"],
             ],
         },
     };

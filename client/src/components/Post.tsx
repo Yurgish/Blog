@@ -1,7 +1,6 @@
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import { Link } from "react-router-dom";
 import { addHashtags, isAuthorOfPost, transformEmail } from "../utils/post.utils";
-import UpdatePostControls from "./UpdatePostControls";
 import { useAppSelector } from "../hooks/store.hooks";
 
 interface PostProps {
@@ -54,7 +53,7 @@ const Post: FC<PostProps> = ({ title, summary, id, tags, createdAt, authorEmail 
                             </div>
                         ))}
                 </div>
-                {user && isAuthorOfPost(user.email, authorEmail) && <UpdatePostControls postId={id} />}
+                {user && isAuthorOfPost(user.email, authorEmail) && <p>*</p>}
             </div>
         </div>
     );

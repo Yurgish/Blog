@@ -16,7 +16,7 @@ const EditPostPage = () => {
         clearErrors();
         try {
             await postUpdateTrigger({ postId: id!, updatedPost }).unwrap();
-            navigate("/");
+            navigate(`/`);
         } catch (error) {
             console.log(error);
             handleServerError(error);
@@ -24,8 +24,8 @@ const EditPostPage = () => {
     };
 
     return (
-        <div className="w-full flex justify-center items-center h-screen">
-            <div className="max-w-[1000px] w-full max-lg:px-6 max-lg:w-full ">
+        <div className="w-full flex justify-center items-center min-h-screen">
+            <div className="max-w-[1000px] w-full max-lg:px-6 max-lg:w-full py-14">
                 <div className="mb-8 max-sm:mb-5">
                     <h1 className="font-serif text-5xl max-sm:text-4xl mb-3">Update Post</h1>
                     {!isLoading && post && (

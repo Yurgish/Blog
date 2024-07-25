@@ -6,6 +6,7 @@ import HomePage from "./pages/HomePage";
 import CreatePostPage from "./pages/CreatePostPage";
 import { userApi } from "./services/user.service";
 import EditPostPage from "./pages/EditPostPage";
+import PostPage from "./pages/PostPage";
 
 const router = createBrowserRouter([
     {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
     {
         path: "/edit-post/:id",
         element: <EditPostPage />,
+    },
+    {
+        path: "/post/:id",
+        element: <PostPage />,
     },
 ]);
 
