@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { Post } from "../models/post.model";
 import { TokenRequest } from "../middleware/auth.middleware";
+import { ModerationPost } from "../models/postOnInspection.model";
 
 export const getPosts = async (req: Request, res: Response) => {
     try {
@@ -22,45 +23,77 @@ export const createPost = async (req: Request, res: Response) => {
         const { title, summary, content, tags } = req.body;
         const userId = (req as TokenRequest).token.id;
 
-        const newPost = new Post({
-            title,
-            summary,
-            content,
-            tags,
-            author: userId,
+        const newModerationPost = new ModerationPost({
+            post: {
+                title,
+                summary,
+                content,
+                tags,
+                author: userId,
+            },
+            checks: 0,
+            isRefused: false,
+            adminMessage: "",
         });
-        await newPost.save();
-        const populatedPost = await newPost.populate("author", "email");
+        await newModerationPost.save();
 
-        res.status(201).json({ message: "Post created successfully", post: populatedPost });
+        res.status(201).json({ message: "Post created successfully and is under moderation" });
     } catch (error) {
         console.error("Error creating post:", error);
         res.status(500).json({ message: "Error creating post" });
     }
 };
+
 export const updatePost = async (req: Request, res: Response) => {
     try {
         const postId = req.params.id;
         const { title, summary, content, tags } = req.body;
         const userId = (req as TokenRequest).token.id;
 
-        const post = await Post.findById(postId);
-        if (!post) {
-            return res.status(404).json({ message: "Post not found" });
+        let post = await Post.findById(postId);
+
+        if (post) {
+            if (post.author.toString() !== userId) {
+                return res.status(403).json({ message: "You are not authorized to edit this post" });
+            }
+
+            await Post.findByIdAndDelete(postId);
+
+            const newModeratedPost = new ModerationPost({
+                post: {
+                    title: title || post.title,
+                    summary: summary || post.summary,
+                    content: content || post.content,
+                    tags: tags || post.tags,
+                    author: post.author,
+                },
+                checks: 0,
+                isRefused: false,
+                adminMessage: "",
+            });
+
+            await newModeratedPost.save();
+            return res.status(200).json({ message: "Post moved to moderation and updated successfully" });
+        } else {
+            const moderatedPost = await ModerationPost.findById(postId);
+
+            if (!moderatedPost) {
+                return res.status(404).json({ message: "Post not found" });
+            }
+
+            if (moderatedPost.post.author.toString() !== userId) {
+                return res.status(403).json({ message: "You are not authorized to edit this post" });
+            }
+
+            moderatedPost.post.title = title || moderatedPost.post.title;
+            moderatedPost.post.summary = summary || moderatedPost.post.summary;
+            moderatedPost.post.content = content || moderatedPost.post.content;
+            moderatedPost.post.tags = tags || moderatedPost.post.tags;
+            moderatedPost.isRefused = false;
+
+            await moderatedPost.save();
+            return res.status(200).json({ message: "Moderated post updated successfully" });
         }
-
-        if (post.author.toString() !== userId) {
-            return res.status(403).json({ message: "You are not authorized to edit this post" });
-        }
-
-        post.title = title || post.title;
-        post.summary = summary || post.summary;
-        post.content = content || post.content;
-        post.tags = tags || post.tags;
-
-        await post.save();
-        const populatedPost = await post.populate("author", "email");
-        res.status(200).json({ message: "Post updated successfully", populatedPost });
     } catch (error) {
         console.error("Error updating post:", error);
         res.status(500).json({ message: "Error updating post" });
@@ -92,18 +125,3 @@ export const deletePostById = async (req: Request, res: Response) => {
         res.status(500).json({ message: "Error deleting post" });
     }
 };
-
-// export const searchPostsByTag = async (req: Request, res: Response) => {
-//     try {
-//         const tag = req.body.tag as string;
-//         if (!tag) {
-//             return res.status(400).json({ message: "Tag query parameter is required" });
-//         }
-
-//         const posts = await Post.find({ tags: tag }).populate('author', 'login');
-//         res.status(200).json(posts);
-//     } catch (error) {
-//         console.error("Error searching posts by tag:", error);
-//         res.status(500).json({ message: "Error searching posts by tag" });
-//     }
-// };
