@@ -7,7 +7,7 @@ import { useAppSelector } from "../hooks/store.hooks";
 const PostPage = () => {
     const { id } = useParams();
     const { data: post, isLoading } = postsApi.useGetPostByIdQuery(id!);
-    const user = useAppSelector((state) => state.userReducer.user);
+    const { user, isAdmin } = useAppSelector((state) => state.userReducer);
     return (
         <div className="w-full flex justify-center ">
             {!isLoading && post && (
@@ -26,7 +26,7 @@ const PostPage = () => {
                                 </p>
                             </div>
                             <div>
-                                {user && isAuthorOfPost(user.email, post.author.email) && (
+                                {((user && isAuthorOfPost(user.email, post.author.email)) || isAdmin) && (
                                     <UpdatePostControls postId={id!} />
                                 )}
                             </div>

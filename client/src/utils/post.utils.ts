@@ -34,10 +34,28 @@ export const isAuthorOfPost = (userEmail: string, postAuthorEmail: string): bool
     return userEmail === postAuthorEmail;
 };
 
-export const formatDate = (dateString: string) => {
+type DateFormatOptions = {
+    day?: boolean;
+    month?: boolean;
+    year?: boolean;
+};
+
+export const formatDate = (
+    dateString: string,
+    options: DateFormatOptions = { day: true, month: true, year: true }
+): string => {
     const date = new Date(dateString);
-    const day = date.getDate();
-    const month = date.toLocaleString("en", { month: "short" });
-    const year = date.getFullYear();
-    return `${day} ${month} ${year}`;
+    const parts = [];
+
+    if (options.day) {
+        parts.push(date.getDate());
+    }
+    if (options.month) {
+        parts.push(date.toLocaleString("en", { month: "short" }));
+    }
+    if (options.year) {
+        parts.push(date.getFullYear());
+    }
+
+    return parts.join(" ");
 };

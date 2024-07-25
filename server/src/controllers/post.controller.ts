@@ -43,14 +43,13 @@ export const updatePost = async (req: Request, res: Response) => {
         const postId = req.params.id;
         const { title, summary, content, tags } = req.body;
         const userId = (req as TokenRequest).token.id;
-        const userRoles = (req as TokenRequest).token.role;
 
         const post = await Post.findById(postId);
         if (!post) {
             return res.status(404).json({ message: "Post not found" });
         }
 
-        if (post.author.toString() !== userId && !userRoles.includes("ADMIN")) {
+        if (post.author.toString() !== userId) {
             return res.status(403).json({ message: "You are not authorized to edit this post" });
         }
 
