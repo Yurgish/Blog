@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
 interface Props {
-    tabs: { name: string; path: string }[]; // Change to include path for routing
+    tabs: { name: string; path: string }[];
     selectedTabNumber?: number;
 }
 
@@ -28,9 +28,7 @@ const Tabs: FC<Props> = ({ tabs, selectedTabNumber = 0 }) => {
                     key={tab.name}
                     to={tab.path}
                     onClick={() => setSelecetedTab(tab)}
-                    className={`relative px-7 py-4 max-sm:px-6 max-sm:py-3 cursor-pointer ${
-                        tab === selectedTab ? "" : ""
-                    }`}
+                    className={`relative px-7 py-4 max-sm:px-6 max-sm:py-3 cursor-pointer hover:bg-[#333333] transition-colors `}
                 >
                     {tab === selectedTab && (
                         <motion.span

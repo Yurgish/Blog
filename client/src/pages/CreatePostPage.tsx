@@ -14,7 +14,7 @@ const CreatePostPage = () => {
         clearErrors();
         try {
             await createPostTrigger(post).unwrap();
-            navigate("/");
+            navigate("/", { replace: true });
         } catch (error) {
             console.log(error);
             handleServerError(error);

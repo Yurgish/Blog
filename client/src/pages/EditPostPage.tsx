@@ -17,7 +17,7 @@ const EditPostPage = () => {
         clearErrors();
         try {
             await postUpdateTrigger({ postId: id!, updatedPost }).unwrap();
-            navigate(`/`);
+            navigate(`/`, { replace: true });
         } catch (error) {
             console.log(error);
             handleServerError(error);

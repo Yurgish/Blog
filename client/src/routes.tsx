@@ -11,17 +11,36 @@ import UserPage from "./pages/UserPage";
 import AcceptedPosts from "./pages/user-outlets/AcceptedPosts";
 import RejectedPosts from "./pages/user-outlets/RejectedPosts";
 import PendingPosts from "./pages/user-outlets/PendingPosts";
+import ProtectedRoute from "./pages/ProtectedRoute";
 
 const router = createBrowserRouter([
     { path: "/", element: <HomePage /> },
     { path: "/register", element: <RegisterPage /> },
     { path: "/login", element: <LoginPage /> },
-    { path: "/create-post", element: <CreatePostPage /> },
-    { path: "/edit-post/:id", element: <EditPostPage /> },
+    {
+        path: "/create-post",
+        element: (
+            <ProtectedRoute>
+                <CreatePostPage />
+            </ProtectedRoute>
+        ),
+    },
+    {
+        path: "/edit-post/:id",
+        element: (
+            <ProtectedRoute>
+                <EditPostPage />
+            </ProtectedRoute>
+        ),
+    },
     { path: "/post/:id", element: <PostPage /> },
     {
         path: "/user",
-        element: <UserPage />,
+        element: (
+            <ProtectedRoute>
+                <UserPage />
+            </ProtectedRoute>
+        ),
         children: [
             { path: "accepted", element: <AcceptedPosts /> },
             { path: "rejected", element: <RejectedPosts /> },
@@ -33,5 +52,5 @@ const router = createBrowserRouter([
 
 export const AppRouter: FC = () => {
     const { isFetching } = userApi.useCheckAuthQuery(null);
-    return <RouterProvider router={router} />;
+    return !isFetching && <RouterProvider router={router} />;
 };
