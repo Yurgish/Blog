@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { IPost, IPostResponse, IPostResponseWithMessage } from "../models/postsApi.models";
+import { IModeratedPostResponse, IPost, IPostResponse, IPostResponseWithMessage } from "../models/postsApi.models";
 
 const SERVER_API_URL = import.meta.env.VITE_SERVER_API_URL;
 export const postsApi = createApi({
@@ -7,7 +7,7 @@ export const postsApi = createApi({
     tagTypes: ["Post"],
     baseQuery: fetchBaseQuery({ baseUrl: SERVER_API_URL, credentials: "include" }),
     endpoints: (builder) => ({
-        getPosts: builder.query<{ posts: IPostResponse[] }, { limit?: number; page?: number }>({
+        getPosts: builder.query<{ posts: IPostResponse[]; hasMore: boolean }, { limit?: number; page?: number }>({
             query: ({ limit = 10, page = 1 }) => ({
                 url: `/posts`,
                 method: "GET",
@@ -42,6 +42,37 @@ export const postsApi = createApi({
                 method: "DELETE",
             }),
             invalidatesTags: ["Post"],
+        }),
+        getModeratedPosts: builder.query<IModeratedPostResponse, { limit?: number; page?: number }>({
+            query: ({ limit = 10, page = 1 }) => ({
+                url: `/posts/moderated`,
+                method: "GET",
+                params: { limit, page },
+            }),
+        }),
+        getAcceptedPosts: builder.query<
+            { posts: IPostResponse[]; hasMore: boolean },
+            { limit?: number; page?: number }
+        >({
+            query: ({ limit = 10, page = 1 }) => ({
+                url: `/posts/accepted`,
+                method: "GET",
+                params: { limit, page },
+            }),
+        }),
+        getRejectedPosts: builder.query<IModeratedPostResponse, { limit?: number; page?: number }>({
+            query: ({ limit = 10, page = 1 }) => ({
+                url: `/posts/moderated/rejected`,
+                method: "GET",
+                params: { limit, page },
+            }),
+        }),
+        getPendingPosts: builder.query<IModeratedPostResponse, { limit?: number; page?: number }>({
+            query: ({ limit = 10, page = 1 }) => ({
+                url: `/posts/moderated/pending`,
+                method: "GET",
+                params: { limit, page },
+            }),
         }),
     }),
 });

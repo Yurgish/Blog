@@ -11,7 +11,11 @@ const Menu = () => {
     return (
         <div className="flex flex-col items-center justify-between w-24 border-r-2 border-green py-24 fixed top-0 left-0 bottom-0 h-full bg-background-black max-xl:flex-row max-xl:h-auto max-xl:w-auto max-xl:top-auto max-xl:border-2 max-xl:py-2 max-xl:px-5 max-xl:left-14 max-xl:right-14 z-40 max-xl:bottom-4 max-sm:bottom-0 max-sm:left-0 max-sm:right-0 ">
             <div className="flex flex-col gap-6 max-xl:flex-row max-xl:gap-16 max-sm:gap-6">
-                {isAuthorized && user && <ProfileIcon login={user.login} />}
+                {isAuthorized && user && (
+                    <Link to="/user">
+                        <ProfileIcon login={user.login} />
+                    </Link>
+                )}
                 <button className="flex flex-col items-center max-xl:flex-row max-xl:gap-2">
                     <SearchIcon />
                     <p className="text-white max-sm:hidden">search</p>

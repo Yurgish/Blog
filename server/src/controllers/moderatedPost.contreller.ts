@@ -65,7 +65,9 @@ export const getModeratedPosts = async (req: Request, res: Response) => {
             .skip(skip)
             .limit(limit)
             .populate("post.author", "email");
-        res.status(200).json({ posts });
+        const totalPosts = await ModerationPost.countDocuments();
+        const hasMore = totalPosts > page * limit;
+        res.status(200).json({ posts, hasMore });
     } catch (error) {
         console.error("Error fetching posts:", error);
         res.status(500).json({ message: "Error fetching posts" });
@@ -75,9 +77,16 @@ export const getModeratedPosts = async (req: Request, res: Response) => {
 // Get all accepted posts for a user
 export const getAcceptedPosts = async (req: Request, res: Response) => {
     try {
+        const limit = parseInt(req.query.limit as string) || 10;
+        const page = parseInt(req.query.page as string) || 1;
+
+        const skip = (page - 1) * limit;
+
         const userId = (req as TokenRequest).token.id;
-        const posts = await Post.find({ author: userId });
-        res.status(200).json(posts);
+        const posts = await Post.find({ author: userId }).skip(skip).limit(limit).populate("author", "email");
+        const totalPosts = await Post.countDocuments({ author: userId });
+        const hasMore = totalPosts > page * limit;
+        res.status(200).json({ posts, hasMore });
     } catch (error) {
         console.error("Error fetching accepted posts:", error);
         res.status(500).json({ message: "Error fetching accepted posts" });
@@ -87,9 +96,19 @@ export const getAcceptedPosts = async (req: Request, res: Response) => {
 // Get all rejected posts for a user
 export const getRejectedPosts = async (req: Request, res: Response) => {
     try {
+        const limit = parseInt(req.query.limit as string) || 10;
+        const page = parseInt(req.query.page as string) || 1;
+
+        const skip = (page - 1) * limit;
+
         const userId = (req as TokenRequest).token.id;
-        const rejectedPosts = await ModerationPost.find({ "post.author": userId, isRefused: true });
-        res.status(200).json(rejectedPosts);
+        const rejectedPosts = await ModerationPost.find({ "post.author": userId, isRefused: true })
+            .skip(skip)
+            .limit(limit)
+            .populate("post.author", "email");
+        const totalPosts = await ModerationPost.countDocuments({ "post.author": userId, isRefused: true });
+        const hasMore = totalPosts > page * limit;
+        res.status(200).json({ posts: rejectedPosts, hasMore });
     } catch (error) {
         console.error("Error fetching rejected posts:", error);
         res.status(500).json({ message: "Error fetching rejected posts" });
@@ -99,9 +118,19 @@ export const getRejectedPosts = async (req: Request, res: Response) => {
 // Get all pending posts for a user
 export const getPendingPosts = async (req: Request, res: Response) => {
     try {
+        const limit = parseInt(req.query.limit as string) || 10;
+        const page = parseInt(req.query.page as string) || 1;
+
+        const skip = (page - 1) * limit;
+
         const userId = (req as TokenRequest).token.id;
-        const pendingPosts = await ModerationPost.find({ "post.author": userId, isRefused: false });
-        res.status(200).json(pendingPosts);
+        const pendingPosts = await ModerationPost.find({ "post.author": userId, isRefused: false })
+            .skip(skip)
+            .limit(limit)
+            .populate("post.author", "email");
+        const totalPosts = await ModerationPost.countDocuments({ "post.author": userId, isRefused: false });
+        const hasMore = totalPosts > page * limit;
+        res.status(200).json({ posts: pendingPosts, hasMore });
     } catch (error) {
         console.error("Error fetching pending posts:", error);
         res.status(500).json({ message: "Error fetching pending posts" });

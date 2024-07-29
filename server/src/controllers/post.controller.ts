@@ -5,13 +5,15 @@ import { ModerationPost } from "../models/postOnInspection.model";
 
 export const getPosts = async (req: Request, res: Response) => {
     try {
-        const limit = req.body.limit || 10;
-        const page = req.body.page || 1;
+        const limit = parseInt(req.query.limit as string) || 10;
+        const page = parseInt(req.query.page as string) || 1;
 
         const skip = (page - 1) * limit;
 
         const posts = await Post.find().sort({ createdAt: -1 }).skip(skip).limit(limit).populate("author", "email");
-        res.status(200).json({ posts });
+        const totalPosts = await Post.countDocuments();
+        const hasMore = totalPosts > page * limit;
+        res.status(200).json({ posts, hasMore });
     } catch (error) {
         console.error("Error fetching posts:", error);
         res.status(500).json({ message: "Error fetching posts" });

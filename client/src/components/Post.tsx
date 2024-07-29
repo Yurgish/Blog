@@ -1,7 +1,6 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
-import { addHashtags, formatDate, isAuthorOfPost, transformEmail } from "../utils/post.utils";
-import { useAppSelector } from "../hooks/store.hooks";
+import { addHashtags, formatDate, transformEmail } from "../utils/post.utils";
 
 interface PostProps {
     title: string;
@@ -13,10 +12,8 @@ interface PostProps {
 }
 
 const Post: FC<PostProps> = ({ title, summary, id, tags, createdAt, authorEmail }) => {
-    const user = useAppSelector((state) => state.userReducer.user);
-
     return (
-        <div className="grid gap-4 grid-cols-[auto_1fr] max-sm:grid-cols-1 max-sm:gap-0">
+        <div className="grid gap-4 grid-cols-[auto_1fr] max-sm:grid-cols-1 max-sm:gap-0 w-full">
             <div className="text-white flex flex-col items-end max-sm:flex-row max-sm:justify-between">
                 <h1 className="font-semibold text-[32px] text-right uppercase max-md:text-2xl max-sm:hidden">
                     {formatDate(createdAt, { day: true })} <br /> {formatDate(createdAt, { month: true })}
@@ -26,7 +23,7 @@ const Post: FC<PostProps> = ({ title, summary, id, tags, createdAt, authorEmail 
                     {transformEmail(authorEmail)}
                 </p>
             </div>
-            <div className="w-[890px] max-lg:w-full max-sm:order-first max-sm:mb-4">
+            <div className="w-full max-sm:order-first max-sm:mb-4">
                 <h1 className="text-green font-serif text-[32px] mb-5 max-md:text-2xl w-full max-sm:mb-4">{title}</h1>
                 <p className="text-white text-lg max-md:text-base">
                     {summary}{" "}
@@ -35,20 +32,21 @@ const Post: FC<PostProps> = ({ title, summary, id, tags, createdAt, authorEmail 
                     </Link>
                 </p>
             </div>
-            <div className="col-start-2 max-sm:col-start-1 flex justify-between mt-3 items-center">
-                <div className="flex gap-2">
-                    {tags &&
-                        addHashtags(tags).map((tag, index) => (
-                            <div
-                                key={index}
-                                className="text-green text-sm border-green border px-[18px] py-1 rounded-full max-md:text-xs"
-                            >
-                                {tag}
-                            </div>
-                        ))}
+            {tags && tags.length > 0 && (
+                <div className="col-start-2 max-sm:col-start-1 flex justify-between mb-1 items-center">
+                    <div className="flex gap-2">
+                        {tags &&
+                            addHashtags(tags).map((tag, index) => (
+                                <div
+                                    key={index}
+                                    className="text-green text-sm border-green border px-[18px] py-1 rounded-full max-md:text-xs"
+                                >
+                                    {tag}
+                                </div>
+                            ))}
+                    </div>
                 </div>
-                {user && isAuthorOfPost(user.email, authorEmail) && <p>*</p>}
-            </div>
+            )}
         </div>
     );
 };
