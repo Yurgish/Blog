@@ -32,8 +32,6 @@ const InfinityScrollPagination: FC<InfinityScrollPaginationProps> = ({
 }) => {
     const [scope, animate] = useAnimate();
 
-    console.log(hasMore, isFetching);
-
     const handleAnimation = useCallback(async () => {
         await animate("#animate-button", animationVariants.hideButton, animationOptions.short);
         fetchMorePosts();
