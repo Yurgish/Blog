@@ -36,8 +36,12 @@ const AlertModal: FC<IAlertModalProps> = ({
             <div className="flex flex-col items-center">
                 <p className="text-xl mb-2 text-center">{alertText}</p>
                 <div className="flex gap-2 w-full flex-wrap justify-around">
-                    <Button value={confirmText} onClick={handleConfirm} className="px-5 py-2"></Button>
-                    <Button value={denyText} onClick={handleDeny} className="px-5 py-2"></Button>
+                    <Button onClick={handleConfirm} size="small">
+                        {confirmText}
+                    </Button>
+                    <Button onClick={handleDeny} size="small" variant="deny">
+                        {denyText}
+                    </Button>
                 </div>
             </div>
         </Modal>
