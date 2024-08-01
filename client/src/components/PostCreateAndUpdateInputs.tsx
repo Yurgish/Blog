@@ -93,7 +93,11 @@ const PostCreateAndUpdateInputs: FC<PostFormProps> = ({
                 errorMessage={validationErrors?.tags}
             />
             <ReactQuill value={content} onChange={setContent} modules={modules} className="mb-4" />
-            <Button type="button" value={buttonText} onClick={handleSubmit} className="self-start" />
+            <div>
+                <Button type="button" onClick={handleSubmit}>
+                    {buttonText}
+                </Button>
+            </div>
         </form>
     );
 };

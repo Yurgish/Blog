@@ -97,7 +97,9 @@ const RegisterPage = () => {
                     className="mb-1"
                 />
                 <div className="mt-5 flex justify-between items-center max-sm:block">
-                    <Button value="SUBMIT" onClick={handleRegisterSubmit} disabled={isButtonDisabled} />
+                    <Button onClick={handleRegisterSubmit} disabled={isButtonDisabled}>
+                        SUBMIT
+                    </Button>
                     <div className="text-xl max-sm:mt-9">
                         <p className="text-white ">already have an account?</p>
                         <Link to="/login" className="text-green hover:underline">

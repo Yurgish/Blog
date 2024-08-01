@@ -5,7 +5,7 @@ import InfinityScrollPagination from "./InfinityScrollPagination";
 
 const PostsContainer = () => {
     const { page, posts, hasMore, fetchMorePosts, addPosts } = useInfinityPagination({});
-    const { data, isLoading } = postsApi.useGetPostsQuery({ limit: 3, page });
+    const { data, isLoading } = postsApi.useGetPostsQuery({ limit: 5, page });
 
     useEffect(() => {
         if (data && data.posts !== posts) {
