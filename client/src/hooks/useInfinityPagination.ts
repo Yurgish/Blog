@@ -11,7 +11,7 @@ const useInfinityPagination = ({ initialPage = 1 }: UseInfinityPaginationProps) 
     const [hasMore, setHasMore] = useState(true);
 
     const addPosts = (newPosts: UnifiedPost[], hasMore: boolean) => {
-        console.log("Adding new posts:", newPosts); // Debugging line
+        // console.log("Adding new posts:", newPosts); // Debugging line
         if (Array.isArray(newPosts)) {
             // Ensure newPosts is an array
             setPosts((prevPosts) => {

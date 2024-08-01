@@ -12,6 +12,7 @@ import AcceptedPosts from "./pages/user-outlets/AcceptedPosts";
 import RejectedPosts from "./pages/user-outlets/RejectedPosts";
 import PendingPosts from "./pages/user-outlets/PendingPosts";
 import ProtectedRoute from "./pages/ProtectedRoute";
+import ModeratedPostPage from "./pages/ModeratedPostPage";
 
 const router = createBrowserRouter([
     { path: "/", element: <HomePage /> },
@@ -34,6 +35,14 @@ const router = createBrowserRouter([
         ),
     },
     { path: "/post/:id", element: <PostPage /> },
+    {
+        path: "/post/moderated/:id",
+        element: (
+            <ProtectedRoute>
+                <ModeratedPostPage />
+            </ProtectedRoute>
+        ),
+    },
     {
         path: "/user",
         element: (

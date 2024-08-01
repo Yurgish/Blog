@@ -1,11 +1,12 @@
 import { FC, useCallback, useEffect } from "react";
 import { IPostResponse, IModeratedPost, UnifiedPost } from "../models/postsApi.models";
-import Post from "./Post";
+import Post from "./post/Post";
 import { htmlToPlainText } from "../utils/post.utils";
 import Button from "./ui/Button";
 import { AnimatePresence, DynamicAnimationOptions, motion, useAnimate } from "framer-motion";
 import Reveal from "./animation/Reveal";
 import { isModeratedPost, isPostResponse } from "../utils/post.typesGuard";
+import ModeratedPost from "./post/ModeratedPost";
 
 interface InfinityScrollPaginationProps {
     posts: UnifiedPost[] | undefined;
@@ -67,13 +68,14 @@ const InfinityScrollPagination: FC<InfinityScrollPaginationProps> = ({
                                     tags={post.tags}
                                 />
                             ) : isModeratedPost(post) ? (
-                                <Post
+                                <ModeratedPost
                                     title={post.post.title}
-                                    summary={post.post.summary ? post.post.summary : htmlToPlainText(post.post.content)}
                                     createdAt={post.createdAt}
                                     id={post._id}
                                     authorEmail={post.post.author.email}
                                     tags={post.post.tags}
+                                    checks={post.checks}
+                                    message={post.adminMessage}
                                 />
                             ) : (
                                 <div>Unknown post type</div>
@@ -84,7 +86,7 @@ const InfinityScrollPagination: FC<InfinityScrollPaginationProps> = ({
             <AnimatePresence>
                 <motion.div id="animate-button" initial={{ opacity: 0, y: 20 }}>
                     {hasMore && !isFetching ? (
-                        <Button onClick={handleAnimation} value="Load more posts" type="button"></Button>
+                        <Button onClick={handleAnimation}>Load more posts</Button>
                     ) : (
                         <p className="font-extralight text-grey text-xl max-sm:text-base">
                             There are no posts to display.

@@ -4,9 +4,9 @@ import PageWrapperLayout from "./layouts/PageWrapperLayout";
 import { useEffect } from "react";
 import PostPageLayout from "./layouts/PostPageLayout";
 
-const PostPage = () => {
+const ModeratedPostPage = () => {
     const { id } = useParams();
-    const { data: post, isLoading, error } = postsApi.useGetPostByIdQuery(id!);
+    const { data: post, isLoading, error } = postsApi.useGetModeratedPostByIdQuery(id!);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -19,4 +19,4 @@ const PostPage = () => {
     return <PageWrapperLayout>{!isLoading && post && <PostPageLayout post={post} />}</PageWrapperLayout>;
 };
 
-export default PostPage;
+export default ModeratedPostPage;

@@ -31,6 +31,7 @@ const UpdatePostControls: FC<UpdatePostControlsProps> = ({ postId }) => {
                     navigate("/", { replace: true });
                 }}
                 confirmText="Delete"
+                denyText="Cancel"
                 alertText="Are you sure you want to delete this post?"
             />
         </div>

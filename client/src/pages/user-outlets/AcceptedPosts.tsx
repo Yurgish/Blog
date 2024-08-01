@@ -8,7 +8,6 @@ const AcceptedPosts = () => {
     const { data, isFetching } = postsApi.useGetAcceptedPostsQuery({ limit: 3, page });
 
     useEffect(() => {
-        console.log(data);
         if (data && data.posts !== posts) {
             addPosts(data.posts, data.hasMore);
         }

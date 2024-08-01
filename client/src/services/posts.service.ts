@@ -1,5 +1,11 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { IModeratedPostResponse, IPost, IPostResponse, IPostResponseWithMessage } from "../models/postsApi.models";
+import {
+    IModeratedPost,
+    IModeratedPostResponse,
+    IPost,
+    IPostResponse,
+    IPostResponseWithMessage,
+} from "../models/postsApi.models";
 
 const SERVER_API_URL = import.meta.env.VITE_SERVER_API_URL;
 export const postsApi = createApi({
@@ -48,6 +54,12 @@ export const postsApi = createApi({
                 url: `/posts/moderated`,
                 method: "GET",
                 params: { limit, page },
+            }),
+        }),
+        getModeratedPostById: builder.query<IModeratedPost, string>({
+            query: (postId) => ({
+                url: `/post/moderated/${postId}`,
+                method: "GET",
             }),
         }),
         getAcceptedPosts: builder.query<

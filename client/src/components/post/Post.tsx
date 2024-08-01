@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
-import { addHashtags, formatDate, transformEmail } from "../utils/post.utils";
+import { formatDate, transformEmail } from "../../utils/post.utils";
+import Tags from "./Tags";
 
 interface PostProps {
     title: string;
@@ -34,17 +35,7 @@ const Post: FC<PostProps> = ({ title, summary, id, tags, createdAt, authorEmail 
             </div>
             {tags && tags.length > 0 && (
                 <div className="col-start-2 max-sm:col-start-1 flex justify-between mb-1 items-center">
-                    <div className="flex gap-2">
-                        {tags &&
-                            addHashtags(tags).map((tag, index) => (
-                                <div
-                                    key={index}
-                                    className="text-green text-sm border-green border px-[18px] py-1 rounded-full max-md:text-xs"
-                                >
-                                    {tag}
-                                </div>
-                            ))}
-                    </div>
+                    <Tags tags={tags} />
                 </div>
             )}
         </div>
