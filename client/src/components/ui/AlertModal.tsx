@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 import Modal from "./Modal";
 import Button from "./Button";
 
@@ -10,6 +10,9 @@ interface IAlertModalProps {
     alertText?: string;
     confirmText?: string;
     denyText?: string;
+    children?: ReactNode;
+    modalClassName?: string;
+    overlayClassName?: string;
 }
 
 const AlertModal: FC<IAlertModalProps> = ({
@@ -20,6 +23,9 @@ const AlertModal: FC<IAlertModalProps> = ({
     onDeny,
     isVisible,
     onClose,
+    children,
+    modalClassName,
+    overlayClassName,
 }) => {
     const handleConfirm = () => {
         onConfirm();
@@ -32,10 +38,16 @@ const AlertModal: FC<IAlertModalProps> = ({
         onClose();
     };
     return (
-        <Modal isVisible={isVisible} onClose={onClose} modalClassName="max-w-80">
+        <Modal
+            isVisible={isVisible}
+            onClose={onClose}
+            modalClassName={`max-w-80 ${modalClassName}`}
+            overlayClassName={overlayClassName}
+        >
             <div className="flex flex-col items-center">
-                <p className="text-xl mb-2 text-center">{alertText}</p>
-                <div className="flex gap-2 w-full flex-wrap justify-around">
+                <p className="text-xl mb-2">{alertText}</p>
+                {children}
+                <div className="flex gap-2 w-full flex-wrap">
                     <Button onClick={handleConfirm} size="small">
                         {confirmText}
                     </Button>

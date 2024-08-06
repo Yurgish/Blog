@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import { FC } from "react";
@@ -12,7 +12,7 @@ import AcceptedPosts from "./pages/user-outlets/AcceptedPosts";
 import RejectedPosts from "./pages/user-outlets/RejectedPosts";
 import PendingPosts from "./pages/user-outlets/PendingPosts";
 import ProtectedRoute from "./pages/ProtectedRoute";
-import ModeratedPostPage from "./pages/ModeratedPostPage";
+import AdminPanelPage from "./pages/AdminPanelPage";
 
 const router = createBrowserRouter([
     { path: "/", element: <HomePage /> },
@@ -39,7 +39,7 @@ const router = createBrowserRouter([
         path: "/post/moderated/:id",
         element: (
             <ProtectedRoute>
-                <ModeratedPostPage />
+                <PostPage />
             </ProtectedRoute>
         ),
     },
@@ -54,8 +54,16 @@ const router = createBrowserRouter([
             { path: "accepted", element: <AcceptedPosts /> },
             { path: "rejected", element: <RejectedPosts /> },
             { path: "pending", element: <PendingPosts /> },
-            { path: "", element: <AcceptedPosts /> },
+            { path: "", element: <Navigate to="/user/accepted" replace /> },
         ],
+    },
+    {
+        path: "/admin-panel",
+        element: (
+            <ProtectedRoute onlyAdmin={true}>
+                <AdminPanelPage />
+            </ProtectedRoute>
+        ),
     },
 ]);
 

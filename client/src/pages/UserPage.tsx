@@ -1,6 +1,6 @@
 import PageMenuLayout from "./layouts/PageMenuLayout";
 import Tabs from "../components/ui/Tabs";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 
 const tabs = [
     { name: "Accepted", path: "/user/accepted" },
@@ -9,10 +9,11 @@ const tabs = [
 ];
 
 const UserPage = () => {
+    const { pathname } = useLocation();
     return (
         <PageMenuLayout>
             <div className="flex flex-col items-center">
-                <Tabs tabs={tabs}></Tabs>
+                <Tabs tabs={tabs} selectedTabPath={pathname}></Tabs>
                 <div className="w-full mt-6">
                     <Outlet />
                 </div>

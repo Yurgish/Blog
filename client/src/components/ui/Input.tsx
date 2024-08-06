@@ -9,8 +9,6 @@ export interface InputProps {
     className?: string;
 }
 
-// Попрацювати над фокусом та іншими стилями
-
 const Input: FC<InputProps> = ({ type, placeholder, value, onChange, className, name }) => {
     return (
         <input

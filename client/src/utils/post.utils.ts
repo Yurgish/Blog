@@ -1,3 +1,6 @@
+import { IModeratedPost, IPostResponse } from "../models/postsApi.models";
+import { isPostResponse } from "./post.typesGuard";
+
 export const htmlToPlainText = (html: string): string => {
     const tempElement = document.createElement("div");
     tempElement.innerHTML = html;
@@ -58,4 +61,18 @@ export const formatDate = (
     }
 
     return parts.join(" ");
+};
+
+export const transformModeratedPostToPostResponse = (moderatedPost: IModeratedPost | IPostResponse): IPostResponse => {
+    if (isPostResponse(moderatedPost)) return moderatedPost;
+    return {
+        _id: moderatedPost._id,
+        title: moderatedPost.post.title,
+        summary: moderatedPost.post.summary,
+        content: moderatedPost.post.content,
+        tags: moderatedPost.post.tags,
+        author: moderatedPost.post.author,
+        createdAt: moderatedPost.createdAt,
+        updatedAt: moderatedPost.updatedAt,
+    };
 };

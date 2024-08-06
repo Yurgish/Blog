@@ -10,7 +10,7 @@ import {
 const SERVER_API_URL = import.meta.env.VITE_SERVER_API_URL;
 export const postsApi = createApi({
     reducerPath: "postsApi",
-    tagTypes: ["Post"],
+    tagTypes: ["Posts", "ModeratedPosts"],
     baseQuery: fetchBaseQuery({ baseUrl: SERVER_API_URL, credentials: "include" }),
     endpoints: (builder) => ({
         getPosts: builder.query<{ posts: IPostResponse[]; hasMore: boolean }, { limit?: number; page?: number }>({
@@ -19,13 +19,14 @@ export const postsApi = createApi({
                 method: "GET",
                 params: { limit, page },
             }),
-            providesTags: ["Post"],
+            providesTags: ["Posts"],
         }),
-        getPostById: builder.query<IPostResponse, string>({
+        getPostById: builder.query<IPostResponse | IModeratedPost, string>({
             query: (postId) => ({
                 url: `/post/${postId}`,
                 method: "GET",
             }),
+            providesTags: ["Posts", "ModeratedPosts"],
         }),
         createPost: builder.mutation<IPostResponseWithMessage, IPost>({
             query: (post) => ({
@@ -33,6 +34,7 @@ export const postsApi = createApi({
                 method: "POST",
                 body: post,
             }),
+            invalidatesTags: ["ModeratedPosts"],
         }),
         updatePost: builder.mutation<IPostResponseWithMessage, { postId: string; updatedPost: IPost }>({
             query: ({ postId, updatedPost }) => ({
@@ -40,14 +42,14 @@ export const postsApi = createApi({
                 method: "PUT",
                 body: updatedPost,
             }),
-            invalidatesTags: ["Post"],
+            invalidatesTags: ["ModeratedPosts"],
         }),
         deletePost: builder.mutation<{ message: string }, string>({
             query: (postId) => ({
                 url: `/post/${postId}`,
                 method: "DELETE",
             }),
-            invalidatesTags: ["Post"],
+            invalidatesTags: ["Posts"],
         }),
         getModeratedPosts: builder.query<IModeratedPostResponse, { limit?: number; page?: number }>({
             query: ({ limit = 10, page = 1 }) => ({
@@ -55,12 +57,7 @@ export const postsApi = createApi({
                 method: "GET",
                 params: { limit, page },
             }),
-        }),
-        getModeratedPostById: builder.query<IModeratedPost, string>({
-            query: (postId) => ({
-                url: `/post/moderated/${postId}`,
-                method: "GET",
-            }),
+            providesTags: ["ModeratedPosts"],
         }),
         getAcceptedPosts: builder.query<
             { posts: IPostResponse[]; hasMore: boolean },
@@ -71,6 +68,7 @@ export const postsApi = createApi({
                 method: "GET",
                 params: { limit, page },
             }),
+            providesTags: ["Posts"],
         }),
         getRejectedPosts: builder.query<IModeratedPostResponse, { limit?: number; page?: number }>({
             query: ({ limit = 10, page = 1 }) => ({
@@ -78,6 +76,7 @@ export const postsApi = createApi({
                 method: "GET",
                 params: { limit, page },
             }),
+            providesTags: ["ModeratedPosts"],
         }),
         getPendingPosts: builder.query<IModeratedPostResponse, { limit?: number; page?: number }>({
             query: ({ limit = 10, page = 1 }) => ({
@@ -85,6 +84,22 @@ export const postsApi = createApi({
                 method: "GET",
                 params: { limit, page },
             }),
+            providesTags: ["ModeratedPosts"],
+        }),
+        confirmPost: builder.mutation<{ message: string }, string>({
+            query: (postId) => ({
+                url: `/post/confirm/${postId}`,
+                method: "POST",
+            }),
+            invalidatesTags: ["Posts"],
+        }),
+        refusePost: builder.mutation<{ message: string }, { message: string; postId: string }>({
+            query: ({ postId, message }) => ({
+                url: `/post/refuse/${postId}`,
+                method: "PUT",
+                body: { message },
+            }),
+            invalidatesTags: ["ModeratedPosts"],
         }),
     }),
 });

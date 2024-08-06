@@ -46,7 +46,7 @@ const Modal: FC<IModalProps> = ({ isVisible, children, modalClassName, overlayCl
         <AnimatePresence>
             {isVisible && (
                 <motion.div
-                    className={`fixed inset-0 bg-background-black bg-opacity-55 z-30 ${overlayClassName}`}
+                    className={`fixed inset-0 bg-background-black bg-opacity-55 z-50 ${overlayClassName}`}
                     onClick={() => {
                         onClose();
                     }}
@@ -56,7 +56,7 @@ const Modal: FC<IModalProps> = ({ isVisible, children, modalClassName, overlayCl
                     exit="exit"
                 >
                     <motion.div
-                        className="fixed inset-0 z-40 min-h-screen flex justify-center items-center p-16"
+                        className="fixed inset-0 z-[60] min-h-screen flex justify-center items-center p-16"
                         variants={modalVariants}
                         initial="initial"
                         animate="animate"

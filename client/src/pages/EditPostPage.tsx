@@ -1,17 +1,25 @@
 import { useNavigate, useParams } from "react-router-dom";
 import PostCreateAndUpdateInputs from "../components/PostCreateAndUpdateInputs";
 import { postsApi } from "../services/posts.service";
-import { IPost } from "../models/postsApi.models";
+import { IPost, IPostResponse } from "../models/postsApi.models";
 import useValidationError from "../hooks/authValidationError";
-import { formatDate, transformEmail } from "../utils/post.utils";
+import { formatDate, transformEmail, transformModeratedPostToPostResponse } from "../utils/post.utils";
 import PageWrapperLayout from "./layouts/PageWrapperLayout";
+import { useEffect, useState } from "react";
 
 const EditPostPage = () => {
     const { id } = useParams();
     const { data: post, isLoading } = postsApi.useGetPostByIdQuery(id!);
+    const [transformedPost, setTransformedTest] = useState<IPostResponse>();
     const [postUpdateTrigger] = postsApi.useUpdatePostMutation();
     const { validationErrors, clearErrors, handleServerError, clearError } = useValidationError();
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (post) {
+            setTransformedTest(() => transformModeratedPostToPostResponse(post));
+        }
+    }, [post, isLoading]);
 
     const handlePostUpdate = async (updatedPost: IPost) => {
         clearErrors();
@@ -28,13 +36,13 @@ const EditPostPage = () => {
         <PageWrapperLayout>
             <div className="mb-8 max-sm:mb-5">
                 <h1 className="font-serif text-5xl max-sm:text-4xl mb-3">Update Post</h1>
-                {!isLoading && post && (
+                {!isLoading && transformedPost && (
                     <>
                         <p className="font-extralight text-grey text-xl max-sm:text-base">
-                            written by {transformEmail(post.author.email)}
+                            written by {transformEmail(transformedPost.author.email)}
                         </p>
                         <p className="font-extralight text-grey text-xl max-sm:text-base">
-                            on {formatDate(post.createdAt)}
+                            on {formatDate(transformedPost.createdAt)}
                         </p>
                     </>
                 )}
@@ -44,7 +52,7 @@ const EditPostPage = () => {
                 onSubmit={handlePostUpdate}
                 validationErrors={validationErrors}
                 clearError={clearError}
-                initialData={post}
+                initialData={transformedPost}
             />
         </PageWrapperLayout>
     );
