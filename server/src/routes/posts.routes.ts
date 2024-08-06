@@ -6,7 +6,6 @@ import { adminMiddleware } from "../middleware/admin.middleware";
 import {
     confirmModeratedPost,
     getAcceptedPosts,
-    getModeratedPostById,
     getModeratedPosts,
     getPendingPosts,
     getRejectedPosts,
@@ -25,7 +24,6 @@ router.post("/post/confirm/:id", authMiddleware, adminMiddleware, confirmModerat
 router.put("/post/refuse/:id", authMiddleware, adminMiddleware, refuseModeratedPost);
 
 router.get("/posts/moderated", authMiddleware, adminMiddleware, getModeratedPosts);
-router.get("/post/moderated/:id", authMiddleware, getModeratedPostById);
 router.get("/posts/accepted", authMiddleware, getAcceptedPosts);
 router.get("/posts/moderated/rejected", authMiddleware, getRejectedPosts);
 router.get("/posts/moderated/pending", authMiddleware, getPendingPosts);

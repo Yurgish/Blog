@@ -106,11 +106,17 @@ export const getPostById = async (req: Request, res: Response) => {
     try {
         const postId = req.params.id;
         const post = await Post.findById(postId);
-        if (!post) {
-            return res.status(404).json({ message: "Post not found" });
+        if (post) {
+            const populatedPost = await post.populate("author", "email");
+            res.status(200).json(populatedPost);
+        } else {
+            const moderatedPost = await ModerationPost.findById(postId);
+            if (!moderatedPost) {
+                return res.status(404).json({ message: "Post not found" });
+            }
+            const populatedModeratedPost = await moderatedPost.populate("post.author", "email");
+            res.status(200).json(populatedModeratedPost);
         }
-        const populatedPost = await post.populate("author", "email");
-        res.status(200).json(populatedPost);
     } catch (error) {
         console.error("Error fetching post:", error);
         res.status(500).json({ message: "Error fetching posts" });
