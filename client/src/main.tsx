@@ -4,11 +4,13 @@ import "./index.css";
 import { Provider } from "react-redux";
 import { store } from "./store/store.ts";
 import { AppRouter } from "./routes.tsx";
+import Notifications from "./components/notifications/Notifications.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
         <Provider store={store}>
             <AppRouter />
+            <Notifications />
         </Provider>
     </React.StrictMode>
 );
