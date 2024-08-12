@@ -50,20 +50,20 @@ body {
     @apply min-h-screen;
 }
 
-p,
-li {
+#quill-custom p,
+#quill-custom li {
     @apply text-lg;
 }
 
-h1 {
+#quill-custom h1 {
     @apply text-[32px];
 }
 
-h2 {
+#quill-custom h2 {
     @apply text-[26px];
 }
 
-h3 {
+#quill-custom h3 {
     @apply text-[22px];
 }
 

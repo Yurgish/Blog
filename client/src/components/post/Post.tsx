@@ -1,7 +1,9 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
-import { formatDate, transformEmail } from "../../utils/post.utils";
+import { formatDate, transformEmail, truncateText } from "../../utils/post.utils";
 import Tags from "./Tags";
+
+const MAX_SUMMARY_LENGTH = 444;
 
 interface PostProps {
     title: string;
@@ -27,7 +29,7 @@ const Post: FC<PostProps> = ({ title, summary, id, tags, createdAt, authorEmail 
             <div className="w-full max-sm:order-first max-sm:mb-4">
                 <h1 className="text-green font-serif text-[32px] mb-5 max-md:text-2xl w-full max-sm:mb-4">{title}</h1>
                 <p className="text-white text-lg max-md:text-base">
-                    {summary}{" "}
+                    <span className="">{truncateText(summary, MAX_SUMMARY_LENGTH)}</span>
                     <Link to={`/post/${id}`} className="text-green hover:underline">
                         ...read more
                     </Link>

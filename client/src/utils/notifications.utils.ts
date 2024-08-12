@@ -10,7 +10,5 @@ export const notify = (message: string, type: NotificationType) => {
 export const handleApiError = (error: unknown) => {
     if (isServerError(error)) {
         notify(error.data?.message || "An unexpected error occurred", "fail");
-    } else {
-        notify("An unexpected error occurred", "fail");
     }
 };

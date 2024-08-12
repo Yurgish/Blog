@@ -6,8 +6,7 @@ import {
     IPostResponse,
     IPostResponseWithMessage,
 } from "../models/postsApi.models";
-import { notify } from "../utils/notifications.utils";
-import { isServerError } from "../utils/typesGuard";
+import { handleApiError, notify } from "../utils/notifications.utils";
 import { handleProgressBar } from "../utils/progressBar.utils";
 
 const SERVER_API_URL = import.meta.env.VITE_SERVER_API_URL;
@@ -52,9 +51,7 @@ export const postsApi = createApi({
                     const { data } = await queryFulfilled;
                     notify(data.message, "success");
                 } catch (error) {
-                    if (isServerError(error)) {
-                        notify(error.data?.message || "An unexpected error occurred", "fail");
-                    }
+                    handleApiError(error);
                 } finally {
                     handleProgressBar("complete");
                 }
@@ -73,9 +70,7 @@ export const postsApi = createApi({
                     const { data } = await queryFulfilled;
                     notify(data.message, "success");
                 } catch (error) {
-                    if (isServerError(error)) {
-                        notify(error.data?.message || "An unexpected error occurred", "fail");
-                    }
+                    handleApiError(error);
                 } finally {
                     handleProgressBar("complete");
                 }
@@ -93,9 +88,7 @@ export const postsApi = createApi({
                     const { data } = await queryFulfilled;
                     notify(data.message, "success");
                 } catch (error) {
-                    if (isServerError(error)) {
-                        notify(error.data?.message || "An unexpected error occurred", "fail");
-                    }
+                    handleApiError(error);
                 } finally {
                     handleProgressBar("complete");
                 }
@@ -164,9 +157,7 @@ export const postsApi = createApi({
                     const { data } = await queryFulfilled;
                     notify(data.message, "success");
                 } catch (error) {
-                    if (isServerError(error)) {
-                        notify(error.data?.message || "An unexpected error occurred", "fail");
-                    }
+                    handleApiError(error);
                 } finally {
                     handleProgressBar("complete");
                 }
@@ -185,9 +176,7 @@ export const postsApi = createApi({
                     const { data } = await queryFulfilled;
                     notify(data.message, "success");
                 } catch (error) {
-                    if (isServerError(error)) {
-                        notify(error.data?.message || "An unexpected error occurred", "fail");
-                    }
+                    handleApiError(error);
                 } finally {
                     handleProgressBar("complete");
                 }

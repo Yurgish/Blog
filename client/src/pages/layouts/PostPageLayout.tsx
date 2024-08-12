@@ -43,7 +43,7 @@ const PostPageLayout = ({ post }: PostPageLayoutProps) => {
                     <hr className="my-6" />
                 </>
             )}
-            <div dangerouslySetInnerHTML={{ __html: transformedPost.content }}></div>
+            <div id="quill-custom" dangerouslySetInnerHTML={{ __html: transformedPost.content }}></div>
         </div>
     );
 };

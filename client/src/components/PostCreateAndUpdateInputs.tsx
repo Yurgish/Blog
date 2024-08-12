@@ -92,7 +92,12 @@ const PostCreateAndUpdateInputs: FC<PostFormProps> = ({
                 placeholder="Tags (comma separated)"
                 errorMessage={validationErrors?.tags}
             />
-            <ReactQuill value={content} onChange={setContent} modules={modules} className="mb-4" />
+            <div>
+                <ReactQuill id="quill-custom" value={content} onChange={setContent} modules={modules} />
+                {validationErrors?.content && (
+                    <p className="text-red italic text-sm mt-1">{validationErrors?.content}</p>
+                )}
+            </div>
             <div>
                 <Button type="button" onClick={handleSubmit}>
                     {buttonText}

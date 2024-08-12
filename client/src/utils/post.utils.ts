@@ -16,6 +16,10 @@ export const htmlToPlainText = (html: string): string => {
     return text.trim();
 };
 
+export const truncateText = (text: string, maxLength: number): string => {
+    return text.length > maxLength ? text.substring(0, maxLength) : text;
+};
+
 export const transformEmail = (email: string): string => {
     if (!email) return "";
     return "@" + email.split("@")[0];
