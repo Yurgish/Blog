@@ -21,7 +21,7 @@ const Reveal: React.FC<Props> = ({ children, width = "fit-content", elementNumbe
                         translateX: "0%",
                         transition: {
                             duration: 0.55,
-                            delay: 0.5 + elementNumber * 0.2,
+                            delay: 0.3 + elementNumber * 0.2,
                             type: "spring",
                         },
                     },
@@ -34,7 +34,7 @@ const Reveal: React.FC<Props> = ({ children, width = "fit-content", elementNumbe
             <motion.div
                 variants={{
                     initial: { translateX: "100%" },
-                    shrink: { translateX: ["100%", 0, "-100%"] },
+                    shrink: { translateX: ["100%", 0, "-110%"] },
                 }}
                 initial="initial"
                 animate="shrink"

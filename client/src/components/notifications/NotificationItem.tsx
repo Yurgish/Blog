@@ -2,6 +2,7 @@ import { FC, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Notification, NotificationType } from "../../models/notification.models";
 import { MdOutlineNotificationsActive } from "react-icons/md";
+import BellAnimation from "../animation/BellAnimation";
 
 // Add icon animation
 
@@ -45,7 +46,9 @@ const NotificationItem: FC<NotificationItemProps> = ({ id, type, message, onRemo
                 <p className="uppercase leading-5 mb-1">{type}</p>
                 <p className="leading-5">{message}</p>
             </div>
-            <MdOutlineNotificationsActive className="text-background-black text-4xl min-w-9" />
+            <BellAnimation>
+                <MdOutlineNotificationsActive className="text-background-black text-4xl min-w-9" />
+            </BellAnimation>
         </motion.div>
     );
 };
