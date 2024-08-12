@@ -5,7 +5,7 @@ import { postsApi } from "../../services/posts.service";
 
 const PendingPosts = () => {
     const { page, posts, hasMore, fetchMorePosts, addPosts } = useInfinityPagination({});
-    const { data, isFetching } = postsApi.useGetPendingPostsQuery({ limit: 3, page });
+    const { data, isFetching } = postsApi.useGetPendingPostsQuery({ limit: 10, page });
 
     useEffect(() => {
         if (data && data.posts) {

@@ -11,3 +11,14 @@ export const isModeratedPost = (post: UnifiedPost): post is IModeratedPost => {
         (post as IModeratedPost).post.author !== undefined
     );
 };
+
+export function isServerError(error: any): error is { data?: { message?: string } } {
+    return (
+        error &&
+        typeof error === "object" &&
+        "data" in error &&
+        error.data !== null &&
+        typeof error.data === "object" &&
+        "message" in error.data
+    );
+}

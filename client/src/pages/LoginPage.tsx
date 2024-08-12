@@ -19,6 +19,7 @@ const LoginPage = () => {
     });
     const { validationErrors, clearErrors, handleServerError, clearError } = useValidationError();
     const navigate = useNavigate();
+
     const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setLoginForm((prev) => ({

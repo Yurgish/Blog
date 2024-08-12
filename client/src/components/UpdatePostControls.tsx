@@ -26,8 +26,8 @@ const UpdatePostControls: FC<UpdatePostControlsProps> = ({ postId }) => {
                 onClose={() => {
                     setIsVisible(false);
                 }}
-                onConfirm={() => {
-                    deletePostTrigger(postId);
+                onConfirm={async () => {
+                    await deletePostTrigger(postId);
                     navigate("/", { replace: true });
                 }}
                 confirmText="Delete"

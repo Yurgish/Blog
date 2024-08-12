@@ -3,12 +3,14 @@ import { userApi } from "../services/user.service";
 import userSlice from "./slices/user.slice";
 import { postsApi } from "../services/posts.service";
 import notificationsSlice from "./slices/notification.slice";
+import progressBarSlice from "./slices/progressBar.slice";
 
 const rootReducer = combineReducers({
     [userApi.reducerPath]: userApi.reducer,
     [postsApi.reducerPath]: postsApi.reducer,
     userReducer: userSlice,
     notificationsReducer: notificationsSlice,
+    progressBarReducer: progressBarSlice,
 });
 
 export const store = configureStore({

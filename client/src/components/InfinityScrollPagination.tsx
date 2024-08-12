@@ -5,7 +5,7 @@ import { htmlToPlainText } from "../utils/post.utils";
 import Button from "./ui/Button";
 import { AnimatePresence, DynamicAnimationOptions, motion, useAnimate } from "framer-motion";
 import Reveal from "./animation/Reveal";
-import { isModeratedPost, isPostResponse } from "../utils/post.typesGuard";
+import { isModeratedPost, isPostResponse } from "../utils/typesGuard";
 import ModeratedPost from "./post/ModeratedPost";
 
 interface InfinityScrollPaginationProps {

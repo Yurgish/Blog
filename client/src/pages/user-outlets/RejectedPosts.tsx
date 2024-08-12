@@ -5,7 +5,7 @@ import { postsApi } from "../../services/posts.service";
 
 const RejectedPosts = () => {
     const { page, posts, hasMore, fetchMorePosts, addPosts } = useInfinityPagination({});
-    const { data, isFetching } = postsApi.useGetRejectedPostsQuery({ limit: 3, page });
+    const { data, isFetching } = postsApi.useGetRejectedPostsQuery({ limit: 10, page });
 
     useEffect(() => {
         if (data && data.posts) {

@@ -1,5 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { IAuthResponse, IUserLogin, IUserRegister } from "../models/userApi.models";
+import { notify } from "../utils/notifications.utils";
+import { isServerError } from "../utils/typesGuard";
+import { handleProgressBar } from "../utils/progressBar.utils";
 
 const SERVER_API_URL = import.meta.env.VITE_SERVER_API_URL;
 export const userApi = createApi({
@@ -12,6 +15,19 @@ export const userApi = createApi({
                 method: "POST",
                 body: newUser,
             }),
+            onQueryStarted: async (_, { queryFulfilled }) => {
+                handleProgressBar("start");
+                try {
+                    const { data } = await queryFulfilled;
+                    notify(data.message, "success");
+                } catch (error) {
+                    if (isServerError(error)) {
+                        notify(error.data?.message || "An unexpected error occurred", "fail");
+                    }
+                } finally {
+                    handleProgressBar("complete");
+                }
+            },
         }),
         loginUser: builder.mutation<IAuthResponse, IUserLogin>({
             query: (credentials) => ({
@@ -19,12 +35,38 @@ export const userApi = createApi({
                 method: "POST",
                 body: credentials,
             }),
+            onQueryStarted: async (_, { queryFulfilled }) => {
+                handleProgressBar("start");
+                try {
+                    const { data } = await queryFulfilled;
+                    notify(data.message, "success");
+                } catch (error) {
+                    if (isServerError(error)) {
+                        notify(error.data?.message || "An unexpected error occurred", "fail");
+                    }
+                } finally {
+                    handleProgressBar("complete");
+                }
+            },
         }),
-        logoutUser: builder.mutation({
+        logoutUser: builder.mutation<{ message: string }, null>({
             query: () => ({
                 url: "/auth/logout",
                 method: "POST",
             }),
+            onQueryStarted: async (_, { queryFulfilled }) => {
+                handleProgressBar("start");
+                try {
+                    const { data } = await queryFulfilled;
+                    notify(data.message, "success");
+                } catch (error) {
+                    if (isServerError(error)) {
+                        notify(error.data?.message || "An unexpected error occurred", "fail");
+                    }
+                } finally {
+                    handleProgressBar("complete");
+                }
+            },
         }),
         checkAuth: builder.query({
             query: () => "/auth/check-auth",

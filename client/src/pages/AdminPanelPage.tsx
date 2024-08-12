@@ -6,10 +6,10 @@ import PageMenuLayout from "./layouts/PageMenuLayout";
 
 const AdminPanelPage = () => {
     const { page, posts, hasMore, fetchMorePosts, addPosts } = useInfinityPagination({});
-    const { data, isFetching } = postsApi.useGetModeratedPostsQuery({ limit: 3, page });
+    const { data, isFetching } = postsApi.useGetModeratedPostsQuery({ limit: 10, page });
 
     useEffect(() => {
-        if (data && data.posts) {
+        if (data && data.posts !== posts) {
             addPosts(data.posts, data.hasMore);
         }
     }, [data]);

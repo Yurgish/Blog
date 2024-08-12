@@ -1,5 +1,5 @@
 import { IModeratedPost, IPostResponse } from "../models/postsApi.models";
-import { isPostResponse } from "./post.typesGuard";
+import { isPostResponse } from "./typesGuard";
 
 export const htmlToPlainText = (html: string): string => {
     const tempElement = document.createElement("div");
