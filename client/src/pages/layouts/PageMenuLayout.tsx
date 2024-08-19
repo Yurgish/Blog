@@ -1,5 +1,5 @@
 import { FC, ReactNode } from "react";
-import Menu from "../../components/Menu";
+import Menu from "@components/Menu";
 import PageWrapperLayout from "./PageWrapperLayout";
 
 interface PageMenuLayoutProps {

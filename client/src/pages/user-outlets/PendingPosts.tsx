@@ -11,7 +11,7 @@ const PendingPosts = () => {
         if (data && data.posts) {
             addPosts(data.posts, data.hasMore);
         }
-    }, [data]);
+    }, [addPosts, data]);
 
     return (
         <InfinityScrollPagination

@@ -1,4 +1,4 @@
-import { addHashtags } from "../../utils/post.utils";
+import { addHashtags } from "@utils/post.utils";
 
 interface TagsProps {
     tags: string[];

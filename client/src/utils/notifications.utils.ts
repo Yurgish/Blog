@@ -1,6 +1,6 @@
-import { NotificationType } from "../models/notification.models";
-import { addNotification } from "../store/slices/notification.slice";
-import { store } from "../store/store";
+import { NotificationType } from "@models/notification.models";
+import { addNotification } from "@/store/slices/notification.slice";
+import { store } from "@/store/store";
 import { isServerError } from "./typesGuard";
 
 export const notify = (message: string, type: NotificationType) => {

@@ -1,8 +1,8 @@
 import { FC, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Notification, NotificationType } from "../../models/notification.models";
+import { Notification, NotificationType } from "@models/notification.models";
 import { MdOutlineNotificationsActive } from "react-icons/md";
-import BellAnimation from "../animation/BellAnimation";
+import BellAnimation from "@components/animation/BellAnimation";
 
 // Add icon animation
 
@@ -28,7 +28,7 @@ const NotificationItem: FC<NotificationItemProps> = ({ id, type, message, onRemo
         }, NOTIFICATION_TIMEOUT);
 
         return () => clearTimeout(timeoutId);
-    }, [onRemove]);
+    }, [id, onRemove]);
 
     return (
         <motion.div

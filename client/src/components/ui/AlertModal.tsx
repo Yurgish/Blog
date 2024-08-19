@@ -1,6 +1,6 @@
 import { FC, ReactNode } from "react";
-import Modal from "./Modal";
-import Button from "./Button";
+import Button from "@components/ui/Button";
+import Modal from "@/components/ui/Modal";
 
 interface IAlertModalProps {
     onConfirm: () => void;

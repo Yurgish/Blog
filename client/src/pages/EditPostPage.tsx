@@ -1,10 +1,10 @@
 import { useNavigate, useParams } from "react-router-dom";
-import PostCreateAndUpdateInputs from "../components/PostCreateAndUpdateInputs";
-import { postsApi } from "../services/posts.service";
-import { IPost, IPostResponse } from "../models/postsApi.models";
-import useValidationError from "../hooks/authValidationError";
-import { formatDate, transformEmail, transformModeratedPostToPostResponse } from "../utils/post.utils";
-import PageWrapperLayout from "./layouts/PageWrapperLayout";
+import PostCreateAndUpdateInputs from "@components/PostCreateAndUpdateInputs";
+import { postsApi } from "@/services/posts.service";
+import { IPost, IPostResponse } from "@models/postsApi.models";
+import useValidationError from "@hooks/authValidationError";
+import { formatDate, transformEmail, transformModeratedPostToPostResponse } from "@utils/post.utils";
+import PageWrapperLayout from "@pages/layouts/PageWrapperLayout";
 import { useEffect, useState } from "react";
 
 const EditPostPage = () => {

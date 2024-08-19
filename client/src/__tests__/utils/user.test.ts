@@ -1,4 +1,4 @@
-import { isAdmin } from "../../utils/user.utils";
+import { isAdmin } from "@utils/user.utils";
 import { describe, test, expect } from "vitest";
 // isAdmin
 describe("transformEmail", () => {

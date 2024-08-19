@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { UnifiedPost } from "../models/postsApi.models";
+import { UnifiedPost } from "@models/postsApi.models";
 
 interface UseInfinityPaginationProps {
     initialPage?: number;

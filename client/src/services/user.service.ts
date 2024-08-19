@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { IAuthResponse, IUserLogin, IUserRegister } from "../models/userApi.models";
-import { handleApiError, notify } from "../utils/notifications.utils";
-import { handleProgressBar } from "../utils/progressBar.utils";
+import { IAuthResponse, IUserLogin, IUserRegister } from "@models/userApi.models";
+import { handleApiError, notify } from "@utils/notifications.utils";
+import { handleProgressBar } from "@utils/progressBar.utils";
 
 const SERVER_API_URL = import.meta.env.VITE_SERVER_API_URL;
 export const userApi = createApi({

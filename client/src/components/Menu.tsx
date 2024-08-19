@@ -1,10 +1,10 @@
-import AddIcon from "./icons/AddIcon";
-import SearchIcon from "./icons/SearchIcon";
+import AddIcon from "@components/icons/AddIcon";
+import SearchIcon from "@components/icons/SearchIcon";
 import { MdOutlineAdminPanelSettings } from "react-icons/md";
 import { Link } from "react-router-dom";
-import { useAppSelector } from "../hooks/store.hooks";
-import { userApi } from "../services/user.service";
-import ProfileIcon from "./ui/ProfileIcon";
+import { useAppSelector } from "@hooks/store.hooks";
+import { userApi } from "@/services/user.service";
+import ProfileIcon from "@components/ui/ProfileIcon";
 
 const Menu = () => {
     const { user, isAuthorized, isAdmin } = useAppSelector((state) => state.userReducer);
@@ -37,7 +37,7 @@ const Menu = () => {
             <div className="text-white flex justify-center border-t-2 border-green w-full max-xl:border-0 max-xl:w-auto">
                 <div className="flex flex-col py-3 max-xl:p-0">
                     {isAuthorized ? (
-                        <button onClick={logoutUser} className="hover:underline hover:text-green">
+                        <button onClick={() => logoutUser(null)} className="hover:underline hover:text-green">
                             log-out
                         </button>
                     ) : (

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import useInfinityPagination from "../hooks/useInfinityPagination";
-import { postsApi } from "../services/posts.service";
-import InfinityScrollPagination from "./InfinityScrollPagination";
+import useInfinityPagination from "@hooks/useInfinityPagination";
+import { postsApi } from "@/services/posts.service";
+import InfinityScrollPagination from "@components/InfinityScrollPagination";
 
 const PostsContainer = () => {
     const { page, posts, hasMore, fetchMorePosts, addPosts } = useInfinityPagination({});
@@ -11,7 +11,7 @@ const PostsContainer = () => {
         if (data && data.posts !== posts) {
             addPosts(data.posts, data.hasMore);
         }
-    }, [data]);
+    }, [addPosts, data, posts]);
 
     return (
         <div className="flex flex-col gap-10 min-h-screen">

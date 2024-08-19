@@ -1,7 +1,7 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { userApi } from "../services/user.service";
+import { userApi } from "@/services/user.service";
 import userSlice from "./slices/user.slice";
-import { postsApi } from "../services/posts.service";
+import { postsApi } from "@/services/posts.service";
 import notificationsSlice from "./slices/notification.slice";
 import progressBarSlice from "./slices/progressBar.slice";
 

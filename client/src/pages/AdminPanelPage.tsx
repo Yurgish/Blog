@@ -1,8 +1,8 @@
 import { useEffect } from "react";
-import InfinityScrollPagination from "../components/InfinityScrollPagination";
-import useInfinityPagination from "../hooks/useInfinityPagination";
-import { postsApi } from "../services/posts.service";
-import PageMenuLayout from "./layouts/PageMenuLayout";
+import InfinityScrollPagination from "@components/InfinityScrollPagination";
+import useInfinityPagination from "@hooks/useInfinityPagination";
+import { postsApi } from "@/services/posts.service";
+import PageMenuLayout from "@pages/layouts/PageMenuLayout";
 
 const AdminPanelPage = () => {
     const { page, posts, hasMore, fetchMorePosts, addPosts } = useInfinityPagination({});
@@ -12,7 +12,7 @@ const AdminPanelPage = () => {
         if (data && data.posts !== posts) {
             addPosts(data.posts, data.hasMore);
         }
-    }, [data]);
+    }, [addPosts, data, posts]);
 
     return (
         <PageMenuLayout>

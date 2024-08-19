@@ -1,5 +1,5 @@
 import { FC, ReactNode } from "react";
-import { useAppSelector } from "../hooks/store.hooks";
+import { useAppSelector } from "@hooks/store.hooks";
 import { Navigate } from "react-router-dom";
 
 interface Props {

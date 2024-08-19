@@ -1,12 +1,12 @@
 import { FC, useCallback, useEffect } from "react";
-import { IPostResponse, IModeratedPost, UnifiedPost } from "../models/postsApi.models";
-import Post from "./post/Post";
-import { htmlToPlainText } from "../utils/post.utils";
-import Button from "./ui/Button";
+import { UnifiedPost } from "@models/postsApi.models";
+import Post from "@components/post/Post";
+import { htmlToPlainText } from "@utils/post.utils";
+import Button from "@components/ui/Button";
 import { AnimatePresence, DynamicAnimationOptions, motion, useAnimate } from "framer-motion";
-import Reveal from "./animation/Reveal";
-import { isModeratedPost, isPostResponse } from "../utils/typesGuard";
-import ModeratedPost from "./post/ModeratedPost";
+import Reveal from "@components/animation/Reveal";
+import { isModeratedPost, isPostResponse } from "@utils/typesGuard";
+import ModeratedPost from "@components/post/ModeratedPost";
 
 interface InfinityScrollPaginationProps {
     posts: UnifiedPost[] | undefined;

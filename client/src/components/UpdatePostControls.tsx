@@ -1,8 +1,8 @@
 import { FC, useState } from "react";
 import { MdOutlineEdit, MdDeleteOutline } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
-import { postsApi } from "../services/posts.service";
-import AlertModal from "./ui/AlertModal";
+import { postsApi } from "@/services/posts.service";
+import AlertModal from "@components/ui/AlertModal";
 
 interface UpdatePostControlsProps {
     postId: string;

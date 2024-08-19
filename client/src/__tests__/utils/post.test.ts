@@ -1,16 +1,16 @@
-import { beforeAll, describe, expect, test } from "vitest";
-import { IModeratedPost, IPostResponse } from "../../models/postsApi.models";
+import { IModeratedPost, IPostResponse } from "@/models/postsApi.models";
 import {
-    transformEmail,
-    htmlToPlainText,
-    truncateText,
-    cleanTags,
     addHashtags,
-    splitTags,
-    isAuthorOfPost,
+    cleanTags,
     formatDate,
+    htmlToPlainText,
+    isAuthorOfPost,
+    splitTags,
+    transformEmail,
     transformModeratedPostToPostResponse,
-} from "../../utils/post.utils";
+    truncateText,
+} from "@/utils/post.utils";
+import { beforeAll, describe, expect, test } from "vitest";
 
 // htmlToPlainText
 describe("htmlToPlainText", () => {

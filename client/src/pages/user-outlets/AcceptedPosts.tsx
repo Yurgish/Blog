@@ -11,7 +11,7 @@ const AcceptedPosts = () => {
         if (data && data.posts !== posts) {
             addPosts(data.posts, data.hasMore);
         }
-    }, [data]);
+    }, [addPosts, data, posts]);
 
     return (
         <InfinityScrollPagination

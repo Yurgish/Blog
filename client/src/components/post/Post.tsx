@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
-import { formatDate, transformEmail, truncateText } from "../../utils/post.utils";
-import Tags from "./Tags";
+import { formatDate, transformEmail, truncateText } from "@utils/post.utils";
+import Tags from "@components/post/Tags";
 
 const MAX_SUMMARY_LENGTH = 444;
 

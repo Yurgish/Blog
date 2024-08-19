@@ -5,9 +5,9 @@ import {
     IPost,
     IPostResponse,
     IPostResponseWithMessage,
-} from "../models/postsApi.models";
-import { handleApiError, notify } from "../utils/notifications.utils";
-import { handleProgressBar } from "../utils/progressBar.utils";
+} from "@models/postsApi.models";
+import { handleApiError, notify } from "@utils/notifications.utils";
+import { handleProgressBar } from "@utils/progressBar.utils";
 
 const SERVER_API_URL = import.meta.env.VITE_SERVER_API_URL;
 export const postsApi = createApi({

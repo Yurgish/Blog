@@ -1,4 +1,4 @@
-import { IModeratedPost, IPostResponse, UnifiedPost } from "../models/postsApi.models";
+import { IModeratedPost, IPostResponse, UnifiedPost } from "@models/postsApi.models";
 
 export const isPostResponse = (post: UnifiedPost): post is IPostResponse => {
     return (post as IPostResponse)._id !== undefined && (post as IPostResponse).author !== undefined;

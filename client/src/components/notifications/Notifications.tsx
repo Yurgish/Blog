@@ -1,7 +1,7 @@
 import { createPortal } from "react-dom";
-import { useAppDispatch, useAppSelector } from "../../hooks/store.hooks";
-import { removeNotification } from "../../store/slices/notification.slice";
-import NotificationItem from "./NotificationItem";
+import { useAppDispatch, useAppSelector } from "@hooks/store.hooks";
+import { removeNotification } from "@/store/slices/notification.slice";
+import NotificationItem from "@components/notifications/NotificationItem";
 import { AnimatePresence } from "framer-motion";
 
 const Notifications = () => {

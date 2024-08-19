@@ -1,4 +1,4 @@
-import { IModeratedPost, IPostResponse } from "../models/postsApi.models";
+import { IModeratedPost, IPostResponse } from "@models/postsApi.models";
 import { isPostResponse } from "./typesGuard";
 
 export const htmlToPlainText = (html: string): string => {

@@ -3,7 +3,11 @@
         "baseUrl": ".",
         "paths": {
             "@/*": ["./src/*"],
-            "@components/*": ["./src/components/*"]
+            "@components/*": ["./src/components/*"],
+            "@pages/*": ["./src/pages/*"],
+            "@models/*": ["./src/models/*"],
+            "@hooks/*": ["./src/hooks/*"],
+            "@utils/*": ["./src/utils/*"]
         },
 
         "types": ["vitest/globals"],

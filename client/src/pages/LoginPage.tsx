@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import AuthLayout from "./layouts/AuthLayout";
-import useValidationError from "../hooks/authValidationError";
-import { userApi } from "../services/user.service";
-import Button from "../components/ui/Button";
+import AuthLayout from "@pages/layouts/AuthLayout";
+import useValidationError from "@hooks/authValidationError";
+import { userApi } from "@/services/user.service";
+import Button from "@components/ui/Button";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import InputWithErrorMessages from "../components/ui/InputWithErrorMessages";
+import InputWithErrorMessages from "@components/ui/InputWithErrorMessages";
 
 type UserLoginForm = {
     email: string;
@@ -29,7 +29,7 @@ const LoginPage = () => {
         clearError(name as keyof UserLoginForm);
     };
 
-    const [loginTrigger, { isLoading }] = userApi.useLoginUserMutation();
+    const [loginTrigger] = userApi.useLoginUserMutation();
 
     const handleLoginSubmit = async () => {
         clearErrors();

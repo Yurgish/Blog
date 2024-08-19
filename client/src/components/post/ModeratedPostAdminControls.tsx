@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { useAppSelector } from "../../hooks/store.hooks";
-import useIsSpecificRoute from "../../hooks/useIsSpecificRoute";
-import AlertModal from "../ui/AlertModal";
-import Button from "../ui/Button";
-import { postsApi } from "../../services/posts.service";
-import Input from "../ui/Input";
+import { useAppSelector } from "@hooks/store.hooks";
+import useIsSpecificRoute from "@hooks/useIsSpecificRoute";
+import AlertModal from "@components/ui/AlertModal";
+import Button from "@components/ui/Button";
+import { postsApi } from "@/services/posts.service";
+import Input from "@components/ui/Input";
 
 const ModeratedPostAdminControls = ({ postId }: { postId: string }) => {
     const { isAdmin } = useAppSelector((state) => state.userReducer);

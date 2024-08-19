@@ -1,5 +1,5 @@
-import PageMenuLayout from "./layouts/PageMenuLayout";
-import Tabs from "../components/ui/Tabs";
+import PageMenuLayout from "@pages/layouts/PageMenuLayout";
+import Tabs from "@components/ui/Tabs";
 import { Outlet, useLocation } from "react-router-dom";
 
 const tabs = [

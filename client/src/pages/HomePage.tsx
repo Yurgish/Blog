@@ -1,5 +1,5 @@
-import PostsContainer from "../components/PostsContainer";
-import PageMenuLayout from "./layouts/PageMenuLayout";
+import PostsContainer from "@components/PostsContainer";
+import PageMenuLayout from "@pages/layouts/PageMenuLayout";
 
 const HomePage = () => {
     return (

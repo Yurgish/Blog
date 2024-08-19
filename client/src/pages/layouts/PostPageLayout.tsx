@@ -1,13 +1,8 @@
-import OpacityReveal from "../../components/animation/OpacityReveal";
-import UpdatePostControls from "../../components/UpdatePostControls";
-import { useAppSelector } from "../../hooks/store.hooks";
-import { IModeratedPost, IPostResponse } from "../../models/postsApi.models";
-import {
-    formatDate,
-    isAuthorOfPost,
-    transformEmail,
-    transformModeratedPostToPostResponse,
-} from "../../utils/post.utils";
+import OpacityReveal from "@components/animation/OpacityReveal";
+import UpdatePostControls from "@components/UpdatePostControls";
+import { useAppSelector } from "@hooks/store.hooks";
+import { IModeratedPost, IPostResponse } from "@models/postsApi.models";
+import { formatDate, isAuthorOfPost, transformEmail, transformModeratedPostToPostResponse } from "@utils/post.utils";
 
 interface PostPageLayoutProps {
     post: IPostResponse | IModeratedPost;

@@ -36,7 +36,7 @@ const RegisterPage = () => {
         clearError(name as keyof UserRegisterForm);
     };
 
-    const [registerTrigger, { isLoading }] = userApi.useRegisterUserMutation();
+    const [registerTrigger] = userApi.useRegisterUserMutation();
 
     const handleRegisterSubmit = async () => {
         const { login, email, password } = registerForm;

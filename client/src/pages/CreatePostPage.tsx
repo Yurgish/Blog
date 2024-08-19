@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import PostCreateAndUpdateInputs from "../components/PostCreateAndUpdateInputs";
-import useValidationError from "../hooks/authValidationError";
-import { IPost } from "../models/postsApi.models";
-import { postsApi } from "../services/posts.service";
-import PageWrapperLayout from "./layouts/PageWrapperLayout";
+import PostCreateAndUpdateInputs from "@components/PostCreateAndUpdateInputs";
+import useValidationError from "@hooks/authValidationError";
+import { IPost } from "@models/postsApi.models";
+import { postsApi } from "@/services/posts.service";
+import PageWrapperLayout from "@pages/layouts/PageWrapperLayout";
 
 const CreatePostPage = () => {
     const [createPostTrigger] = postsApi.useCreatePostMutation();

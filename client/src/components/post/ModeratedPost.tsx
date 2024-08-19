@@ -1,8 +1,8 @@
 import { FC } from "react";
-import Tags from "./Tags";
-import { formatDate } from "../../utils/post.utils";
+import Tags from "@components/post/Tags";
+import { formatDate } from "@utils/post.utils";
 import { Link } from "react-router-dom";
-import ModeratedPostAdminControls from "./ModeratedPostAdminControls";
+import ModeratedPostAdminControls from "@components/post/ModeratedPostAdminControls";
 
 interface ModeratedPostProps {
     title: string;
