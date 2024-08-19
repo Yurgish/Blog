@@ -47,7 +47,11 @@ const PostPageLayout = ({ post }: PostPageLayoutProps) => {
                     </>
                 )}
 
-                <div id="quill-custom" dangerouslySetInnerHTML={{ __html: transformedPost.content }}></div>
+                <div
+                    className="[&_ul]:list-disc [&_ol]:list-decimal [&_a]:underline"
+                    id="quill-custom"
+                    dangerouslySetInnerHTML={{ __html: transformedPost.content }}
+                ></div>
             </div>
         </OpacityReveal>
     );

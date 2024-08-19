@@ -44,7 +44,7 @@ const LoginPage = () => {
     };
 
     return (
-        <AuthLayout authTitle="Sign Up" welcomeText="Let’s sign you up quickly">
+        <AuthLayout authTitle="Login" welcomeText="Let’s sign you up quickly">
             <form className="flex flex-col gap-5">
                 <InputWithErrorMessages
                     type="text"

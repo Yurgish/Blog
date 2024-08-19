@@ -12,6 +12,7 @@ export const isModeratedPost = (post: UnifiedPost): post is IModeratedPost => {
     );
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function isServerError(error: any): error is { data?: { message?: string } } {
     return (
         error &&

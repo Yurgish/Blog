@@ -9,11 +9,13 @@ export const htmlToPlainText = (html: string): string => {
 
     text = text.replace(/([a-z])([A-Z])/g, "$1. $2");
 
-    if (text.length > 0 && text[text.length - 1] !== ".") {
+    text = text.trim();
+
+    if (text.length > 0 && !/[.!?]$/.test(text)) {
         text += ".";
     }
 
-    return text.trim();
+    return text;
 };
 
 export const truncateText = (text: string, maxLength: number): string => {
@@ -34,7 +36,11 @@ export const addHashtags = (tags: string[]): string[] => {
 };
 
 export const splitTags = (tags: string): string[] => {
-    return tags.split(",").map((tag) => tag.trim());
+    if (tags === "") return [];
+    return tags
+        .split(",")
+        .map((tag) => tag.trim())
+        .filter((tag) => tag !== "");
 };
 
 export const isAuthorOfPost = (userEmail: string, postAuthorEmail: string): boolean => {
@@ -52,6 +58,11 @@ export const formatDate = (
     options: DateFormatOptions = { day: true, month: true, year: true }
 ): string => {
     const date = new Date(dateString);
+
+    if (isNaN(date.getTime())) {
+        throw new Error("Invalid date");
+    }
+
     const parts = [];
 
     if (options.day) {
