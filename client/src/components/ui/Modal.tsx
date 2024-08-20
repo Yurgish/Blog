@@ -46,6 +46,7 @@ const Modal: FC<IModalProps> = ({ isVisible, children, modalClassName, overlayCl
         <AnimatePresence>
             {isVisible && (
                 <motion.div
+                    data-testid="modal-overlay"
                     className={`fixed inset-0 bg-background-black bg-opacity-55 z-50 ${overlayClassName}`}
                     onClick={() => {
                         onClose();
@@ -64,6 +65,7 @@ const Modal: FC<IModalProps> = ({ isVisible, children, modalClassName, overlayCl
                     >
                         <motion.div>
                             <div
+                                data-testid="modal-body"
                                 className={`bg-background-black border border-green px-7 py-5 max-sm:px-6 max-sm:py-4 ${modalClassName}`}
                                 onClick={(e) => {
                                     e.stopPropagation();
