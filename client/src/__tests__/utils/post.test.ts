@@ -12,74 +12,92 @@ import {
 } from "@/utils/post.utils";
 import { beforeAll, describe, expect, test } from "vitest";
 
-// htmlToPlainText
 describe("htmlToPlainText", () => {
-    test("should convert HTML to plain text", () => {
-        const html = "<div><p>Hello, <strong>world!</strong></p></div>";
-        expect(htmlToPlainText(html)).toBe("Hello, world!");
-    });
-
-    test("should add a period between camelCase words", () => {
-        const html = "<div>camelCaseText</div>";
-        expect(htmlToPlainText(html)).toBe("camel. Case. Text.");
-    });
-
-    test("should add a period at the end if missing", () => {
-        const html = "<div>This is a sentence without a period</div>";
-        expect(htmlToPlainText(html)).toBe("This is a sentence without a period.");
-    });
-
-    test("should trim whitespace around text", () => {
-        const html = "<div>   Text with whitespace   </div>";
-        expect(htmlToPlainText(html)).toBe("Text with whitespace.");
+    test.each([
+        {
+            html: "<div><p>Hello, <strong>world!</strong></p></div>",
+            expected: "Hello, world!",
+        },
+        {
+            html: "<div>camelCaseText</div>",
+            expected: "camel. Case. Text.",
+        },
+        {
+            html: "<div>This is a sentence without a period</div>",
+            expected: "This is a sentence without a period.",
+        },
+        {
+            html: "<div>   Text with whitespace   </div>",
+            expected: "Text with whitespace.",
+        },
+    ])("should convert HTML to plain text correctly $html -> $expected", ({ html, expected }) => {
+        expect(htmlToPlainText(html)).toBe(expected);
     });
 });
-
-// truncateText
 
 describe("truncateText", () => {
-    test("should return the original text if it is shorter than maxLength", () => {
-        expect(truncateText("The original panel.", 20)).toBe("The original panel.");
-    });
-
-    test("should return truncated text if it is longer than maxLength", () => {
-        expect(truncateText("The original panel.", 10)).toBe("The origin");
-    });
-
-    test("should return the original text if maxLength is equal to text length", () => {
-        expect(truncateText("Text & ten", 10)).toBe("Text & ten");
-    });
-
-    test("should return an empty string if the input text is empty", () => {
-        expect(truncateText("", 10)).toBe("");
+    test.each([
+        {
+            text: "The original panel.",
+            maxLength: 20,
+            expected: "The original panel.",
+        },
+        {
+            text: "The original panel.",
+            maxLength: 10,
+            expected: "The origin",
+        },
+        {
+            text: "Text & ten",
+            maxLength: 10,
+            expected: "Text & ten",
+        },
+        {
+            text: "",
+            maxLength: 10,
+            expected: "",
+        },
+    ])("should return truncated text correctly ($text, $maxLength) -> $expected", ({ text, maxLength, expected }) => {
+        expect(truncateText(text, maxLength)).toBe(expected);
     });
 });
 
-// transformEmail
 describe("transformEmail", () => {
-    test("should transform email correctly", () => {
-        expect(transformEmail("gumcka123@gmail.com")).toBe("@gumcka123");
-    });
-
-    test("should return empty string if email is empty", () => {
-        expect(transformEmail("")).toBe("");
+    test.each([
+        { mail: "symbolic@verizon.net", expected: "@symbolic" },
+        { mail: "stakasa@aol.com", expected: "@stakasa" },
+        { mail: "muadip@me.com", expected: "@muadip" },
+        { mail: "zeitlin-clows@gmail.com", expected: "@zeitlin-clows" },
+        { mail: "rande@hotmail.com", expected: "@rande" },
+        { mail: "trygstad@optonline.net", expected: "@trygstad" },
+        { mail: "josem@yahoo.ca", expected: "@josem" },
+        { mail: "world.day@mac.com", expected: "@world.day" },
+        { mail: "isorashi@hotmail.com", expected: "@isorashi" },
+        { mail: "arachne@live.com", expected: "@arachne" },
+        { mail: "preneel@yahoo.com", expected: "@preneel" },
+        { mail: "druschel@hotmail.com", expected: "@druschel" },
+        { mail: "", expected: "" },
+    ])("should transform email correctly $mail -> $expected", ({ mail, expected }) => {
+        expect(transformEmail(mail)).toBe(expected);
     });
 });
 
-//cleanTags
 describe("cleanTags", () => {
-    test("should remove non-alphanumeric characters and convert to lowercase", () => {
-        const tags = ["Hello!@#", "World123$", "Test_123"];
-        expect(cleanTags(tags)).toEqual(["hello", "world123", "test123"]);
-    });
-
-    test("should return an empty array if input is an empty array", () => {
-        expect(cleanTags([])).toEqual([]);
-    });
-
-    test("should handle tags with spaces", () => {
-        const tags = ["Hello World", "Test Tag"];
-        expect(cleanTags(tags)).toEqual(["helloworld", "testtag"]);
+    test.each([
+        {
+            inputTags: ["Hello!@#", "World123$", "Test_123"],
+            expected: ["hello", "world123", "test123"],
+        },
+        {
+            inputTags: [],
+            expected: [],
+        },
+        {
+            inputTags: ["Hello World", "Test Tag"],
+            expected: ["helloworld", "testtag"],
+        },
+    ])("should clean tags correctly $inputTags -> $expected", ({ inputTags, expected }) => {
+        expect(cleanTags(inputTags)).toEqual(expected);
     });
 
     test("should return the correct number of elements in the array", () => {
@@ -88,80 +106,49 @@ describe("cleanTags", () => {
     });
 });
 
-//addHashtags
 describe("addHashtags", () => {
-    test("should add tags correctly", () => {
-        expect(addHashtags(["tag", "life", "death"])).toEqual(["#tag", "#life", "#death"]);
-    });
-
-    test("should return empty array if tags array is empty", () => {
-        expect(addHashtags([])).toEqual([]);
+    test.each([
+        { inputTags: ["tag", "life", "death"], expected: ["#tag", "#life", "#death"] },
+        { inputTags: [], expected: [] },
+    ])("should add hashtags correctly $inputTags -> $expected", ({ inputTags, expected }) => {
+        expect(addHashtags(inputTags)).toEqual(expected);
     });
 });
 
-//splitTags
-describe("addHashtags", () => {
-    test("should split a comma-separated string into an array of tags", () => {
-        const tagsString = "tag1,tag2,tag3";
-        expect(splitTags(tagsString)).toEqual(["tag1", "tag2", "tag3"]);
-    });
-
-    test("should trim whitespace around tags", () => {
-        const tagsString = " tag1 , tag2 , tag3 ";
-        expect(splitTags(tagsString)).toEqual(["tag1", "tag2", "tag3"]);
-    });
-
-    test("should handle a string with only one tag", () => {
-        expect(splitTags("singleTag")).toEqual(["singleTag"]);
-    });
-
-    test("should return an empty array for an empty string", () => {
-        expect(splitTags("")).toEqual([]);
-    });
-
-    test("should handle multiple consecutive commas", () => {
-        const tagsString = "tag1,,,tag2,,tag3";
-        const result = splitTags(tagsString);
-        expect(result).toEqual(["tag1", "tag2", "tag3"]);
+describe("splitTags", () => {
+    test.each([
+        { tagsString: "tag1,tag2,tag3", expected: ["tag1", "tag2", "tag3"] },
+        { tagsString: " tag1 , tag2 , tag3 ", expected: ["tag1", "tag2", "tag3"] },
+        { tagsString: "singleTag", expected: ["singleTag"] },
+        { tagsString: "", expected: [] },
+        { tagsString: "tag1,,,tag2,,tag3", expected: ["tag1", "tag2", "tag3"] },
+    ])("should correctly split $tagsString -> $expected", ({ tagsString, expected }) => {
+        expect(splitTags(tagsString)).toEqual(expected);
     });
 });
 
-//isAuthorOfPost
 describe("isAuthorOfPost", () => {
-    test("should return true if emails are the same", () => {
-        expect(isAuthorOfPost("mail@gmail.com", "mail@gmail.com")).toBe(true);
-    });
-    test("should return false if emails are diferent", () => {
-        expect(isAuthorOfPost("mail@gmail.com", "notAuthorMail@gmail.com")).toBe(false);
-    });
+    test.each([
+        { authorEmail: "mail@gmail.com", postEmail: "mail@gmail.com", expected: true },
+        { authorEmail: "mail@gmail.com", postEmail: "notAuthorMail@gmail.com", expected: false },
+    ])(
+        "should return $expected when authorEmail is $authorEmail and postEmail is $postEmail",
+        ({ authorEmail, postEmail, expected }) => {
+            expect(isAuthorOfPost(authorEmail, postEmail)).toBe(expected);
+        }
+    );
 });
 
-//formatDate
 describe("formatDate", () => {
-    let dateString: string;
+    const dateString = "2024-08-16T00:00:00Z";
 
-    beforeAll(() => {
-        dateString = "2024-08-16T00:00:00Z";
-    });
-
-    test("should format date with day, month, and year by default", () => {
-        expect(formatDate(dateString)).toBe("16 Aug 2024");
-    });
-
-    test("should format date with day, month, and year by defined options", () => {
-        expect(formatDate(dateString, { day: true, month: true, year: true })).toBe("16 Aug 2024");
-    });
-
-    test("should format date with day, month, and year by defined options", () => {
-        expect(formatDate(dateString, { day: true, month: true, year: true })).toBe("16 Aug 2024");
-    });
-
-    test("should format date with only month and year", () => {
-        expect(formatDate(dateString, { day: false, month: true, year: true })).toBe("Aug 2024");
-    });
-
-    test("should format date with only year", () => {
-        expect(formatDate(dateString, { day: false, month: false, year: true })).toBe("2024");
+    test.each([
+        { options: undefined, expected: "16 Aug 2024" },
+        { options: { day: true, month: true, year: true }, expected: "16 Aug 2024" },
+        { options: { day: false, month: true, year: true }, expected: "Aug 2024" },
+        { options: { day: false, month: false, year: true }, expected: "2024" },
+    ])("should format date with options $options -> $expected", ({ options, expected }) => {
+        expect(formatDate(dateString, options)).toBe(expected);
     });
 
     test("should throw an error for invalid date string", () => {
@@ -169,7 +156,6 @@ describe("formatDate", () => {
     });
 });
 
-//transformModeratedPostToPostResponse
 describe("transformModeratedPostToPostResponse", () => {
     let postResponse: IPostResponse;
     beforeAll(() => {
