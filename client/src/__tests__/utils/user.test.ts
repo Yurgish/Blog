@@ -1,16 +1,12 @@
 import { isAdmin } from "@utils/user.utils";
 import { describe, test, expect } from "vitest";
-// isAdmin
-describe("transformEmail", () => {
-    test("should return false if array is empty", () => {
-        expect(isAdmin([])).toBe(false);
-    });
 
-    test("should return false if there are no ADMIN in the array", () => {
-        expect(isAdmin(["USER"])).toBe(false);
-    });
-
-    test("should return true if there are ADMIN in the array", () => {
-        expect(isAdmin(["USER", "ADMIN"])).toBe(true);
+describe("isAdmin", () => {
+    test.each([
+        { roleArray: [], expected: false },
+        { roleArray: ["USER"], expected: false },
+        { roleArray: ["USER", "ADMIN"], expected: true },
+    ])("should return $expected if array is $roleArray", ({ roleArray, expected }) => {
+        expect(isAdmin(roleArray)).toBe(expected);
     });
 });
