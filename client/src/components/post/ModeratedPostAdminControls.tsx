@@ -37,7 +37,7 @@ const ModeratedPostAdminControls = ({ postId }: { postId: string }) => {
         isAdmin &&
         isSpecificRoute && (
             <>
-                <div className="flex flex-col gap-2 max-w">
+                <div data-testid="controls" className="flex flex-col gap-2 max-w">
                     <Button size="small" onClick={() => setIsConfirmAlertVisible(true)}>
                         Confirm
                     </Button>
@@ -46,12 +46,14 @@ const ModeratedPostAdminControls = ({ postId }: { postId: string }) => {
                     </Button>
                 </div>
                 <AlertModal
+                    data-testid="confirm-modal"
                     isVisible={isConfirmAlertVisible}
                     onClose={() => setIsConfirmAlertVisible(false)}
                     onConfirm={handlePostConfirm}
                     alertText="Are you sure you want to confirm this post?"
                 />
                 <AlertModal
+                    data-testid="deny-modal"
                     isVisible={isRefuseAlertVisible}
                     onClose={() => setIsRefuseAlertVisible(false)}
                     onConfirm={handlePostRefuse}
@@ -60,6 +62,7 @@ const ModeratedPostAdminControls = ({ postId }: { postId: string }) => {
                     modalClassName="max-w-[500px]"
                 >
                     <Input
+                        data-testid="input-in-deny-modal"
                         value={adminMessage}
                         onChange={(e) => setAdminMessage(e.target.value)}
                         type="text"
