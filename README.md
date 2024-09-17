@@ -55,6 +55,7 @@ npm install`
 VITE_SERVER_API_URL=<your-server-url>
 ```
 Replace `<your-server-url>` with the URL of your backend server.
+
 4. Run the client: 
 ```bash 
 npm run dev
