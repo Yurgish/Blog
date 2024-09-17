@@ -30,7 +30,8 @@ Ensure you have the following installed:
 
 ### 1. Clone the repository:
 ```bash
-git clone https://github.com/Yurgish/Blog.git <folder-name>cd <folder-name>
+git clone https://github.com/Yurgish/Blog.git <folder-name>
+cd <folder-name>
 ```
 > [!Note]
 > Replace `<new-folder-name>` with the name of the new directory you want to create. The repository will be cloned into a new directory with this name.
