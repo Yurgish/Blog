@@ -4,9 +4,12 @@ import tsconfigPaths from "vite-tsconfig-paths";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-    plugins: [react(), tsconfigPaths()],
-    test: {
-        environment: "jsdom",
-        setupFiles: ["./src/__tests__/setup.ts"],
-    },
+  plugins: [react(), tsconfigPaths()],
+  server: {
+    port: 5000,
+  },
+  test: {
+    environment: "jsdom",
+    setupFiles: ["./src/__tests__/setup.ts"],
+  },
 });
